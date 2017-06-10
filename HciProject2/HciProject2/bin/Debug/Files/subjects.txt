@@ -1,0 +1,5 @@
+idSub1;HCI;sw;lep;20;3;3;False;True;True;Linux;idsoft1
+idSub2;ISA;e3;lep;40;3;5;True;True;True;Windows;idsoft2
+miki;ISA;e3;lep;40;3;5;True;False;True;Windows;idsoft2
+ikkk;mil;e3;mil;2;3;1;True;False;True;Linux;idsoft1
+i;ii;e3;i;0;0;0;True;True;True;Linux;idsoft1

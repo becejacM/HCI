@@ -1,0 +1,87 @@
+﻿<Window x:Class="HciProject2.Dialogs.AddClassroomDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HciProject2.Dialogs"
+        mc:Ignorable="d"
+        Title="AddClassroomDialog" Height="500" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="150" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="90" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- row 0 -->
+            <Label ToolTip="Sets id for an classroom. It is unique for every classroom with no possibility of modifying." Grid.Column="0" Grid.Row="0" Content="Id:" />
+            <TextBox Name="id" MaxLength="150" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"
+                     Text="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,2,2" />
+
+            <!-- row 1 -->
+            <Label ToolTip="Sets number of workers." Grid.Column="0" Grid.Row="1" Content="Number of workers:" />
+            <TextBox Name="brRadnihMesta" MaxLength="150" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
+                     Text="{Binding Path=BrRadnihMesta, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,2,2" />
+            <!-- row 2 -->
+            <Label ToolTip="Sets description for an premises." Grid.Column="0" Grid.Row="2" Content="Description:" />
+            <TextBox Name="opis" MaxLength="2150" Grid.Column="1" Grid.Row="2" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" Text="{Binding Path=Opis, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,2,2" />
+
+            <!-- row 3 -->
+            <CheckBox ToolTip="Sets projector. Select appropriate one." Name="projector" Grid.Row="3" Grid.Column="1"
+                      Content="Projector" VerticalAlignment="Center"
+                      IsChecked="{Binding Path=PrisustvoProjektora}" />
+
+            <!-- row 4 -->
+            <CheckBox ToolTip="Sets Table." Name="prisustvoTable" Grid.Row="4" Grid.Column="1" Content="Prisustvo table"
+                      VerticalAlignment="Center" IsChecked="{Binding Path=PrisustvoTable}" />
+
+            <!-- row 5 -->
+            <CheckBox ToolTip="Sets smart table." Name="smartTable" Grid.Row="5" Grid.Column="1" Content="Smart table"
+                      VerticalAlignment="Center" IsChecked="{Binding Path=PrisustvoPametne}" />
+
+            <!-- row 6 -->
+            <Label ToolTip="Sets possibility of alcohol serving for an premises. Select appropriate one." Grid.Column="0" Grid.Row="6" Content="Os:" />
+            <ComboBox Name="os" Grid.Column="1" Grid.Row="6" SelectedItem="{Binding Path=Os}"
+                      VerticalAlignment="Center" Margin="0,0,2,0" >
+            </ComboBox>
+
+
+            <!-- row 7 -->
+            <Label ToolTip="Sets softver." Grid.Column="0" Grid.Row="7" Content="Softver:" />
+            <TextBox Name="softver" Grid.Column="1" Grid.Row="7" Text="{Binding Path=Softver, UpdateSourceTrigger=PropertyChanged}"
+                      VerticalAlignment="Center" Margin="0,0,2,0" />
+
+            
+            
+        </Grid>
+        
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Background="LightGray">
+            <Button Name="btnCancel" ToolTip="Cancel changes" Content="Cancel" IsCancel="True" Margin="10" Padding="20,5" />
+            <Button Name="btnSave" ToolTip="Save changes" Content="Save" IsDefault="True" Click="btnSave_Click" Margin="10" Padding="20,5" />
+        </StackPanel>
+    </Grid>
+</Window>

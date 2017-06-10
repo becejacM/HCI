@@ -1,0 +1,4 @@
+c1;opis1;2;False;True;False;Linux;idsoft2
+c2;opis2;6;True;True;True;Linux;idsoft1
+c44;opis3;3;True;True;True;Linux;idsoft2
+miki;miki;0;False;False;False;Linux;idsoft1

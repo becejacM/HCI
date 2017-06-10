@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfCourse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Course>
+    <id>mmm</id>
+    <naziv>m</naziv>
+    <datum>6/9/2017 4:54:05 AM</datum>
+    <opis>m</opis>
+    <Id>mmm</Id>
+    <Naziv>m</Naziv>
+    <Datum>6/9/2017 4:54:05 AM</Datum>
+    <Opis>m</Opis>
+  </Course>
+</ArrayOfCourse>

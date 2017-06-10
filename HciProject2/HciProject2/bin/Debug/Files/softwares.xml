@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ArrayOfSoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Software>
+    <id>mmm</id>
+    <naziv>m</naziv>
+    <os>Windows</os>
+    <proizvodjac>m</proizvodjac>
+    <sajt>m</sajt>
+    <godinaIzdavanja>1000</godinaIzdavanja>
+    <cena>0</cena>
+    <opis>m</opis>
+    <Id>mmm</Id>
+    <Naziv>m</Naziv>
+    <Os>Windows</Os>
+    <Proizvodjac>m</Proizvodjac>
+    <Sajt>m</Sajt>
+    <GodinaIzdavanja>1000</GodinaIzdavanja>
+    <Cena>0</Cena>
+    <Opis>m</Opis>
+  </Software>
+</ArrayOfSoftware>

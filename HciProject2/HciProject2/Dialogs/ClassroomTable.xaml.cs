@@ -1,0 +1,632 @@
+﻿using HciProject2.Model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Xml.Serialization;
+
+namespace HciProject2.Dialogs
+{
+    /// <summary>
+    /// Interaction logic for ClassroomTable.xaml
+    /// </summary>
+    public partial class ClassroomTable : Window
+    {
+        Point startPoint = new Point();
+        private Classroom classroom;
+        private ObservableCollection<Software> softwares;
+        public static ObservableCollection<Classroom> classroomShow { get; set; }
+
+        Boolean addNew;
+        String currId;
+        private Classroom Classroom
+        {
+            get
+            {
+                return classroom;
+            }
+            set
+            {
+                classroom = value;
+            }
+        }
+        public ClassroomTable()
+        {
+            InitializeComponent();
+
+            os.Items.Add("Linux");
+            os.Items.Add("Windows");
+            os.Items.Add("Both");
+
+            osistem.Items.Add("");
+            osistem.Items.Add("Windows");
+            osistem.Items.Add("Linux");
+            osistem.Items.Add("Both");
+
+            classroom = new Classroom();
+            softwares = new ObservableCollection<Software>();
+            classroomShow = new ObservableCollection<Classroom>();
+
+            Id.DataContext = classroom;
+            brRadnihMesta.DataContext = classroom;
+            opis.DataContext = classroom;
+            prisustvoProjektora.DataContext = classroom;
+            prisustvoTable.DataContext = classroom;
+            smartTable.DataContext = classroom;
+            os.DataContext = classroom;
+            
+            foreach (Classroom s in MainWindow.classrooms)
+            {
+                classroomShow.Add(s);
+            }
+            addNew = false;
+            dgrMain.ItemsSource = classroomShow;
+            allSofts.ItemsSource = MainWindow.softwares;
+            DropList.ItemsSource = softwares;
+            enableFields(false);
+            dgrMain.UnselectAllCells();
+            setSelected();
+            this.DataContext = this;
+        }
+
+        private void dgrMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgrMain.SelectedIndex != -1)
+            {
+                Console.WriteLine("***** indeks selektovanog: " + dgrMain.SelectedIndex);
+                setSelected();
+                enableFields(true);
+                addNew = false;
+                currId = classroom.Id;
+            }
+        }
+
+        private void setSelected()
+        {
+            if (dgrMain.SelectedIndex != -1)
+            {
+                classroom.Copy(classroomShow[dgrMain.SelectedIndex]);
+                softwares.Clear();
+                foreach(Software s in classroomShow[dgrMain.SelectedIndex].Softver)
+                {
+                    softwares.Add(s);
+
+                }
+            }
+
+            else
+            {
+                //deep copy
+                classroom.Id = "";
+                classroom.Opis = "";
+                classroom.BrRadnihMesta = 0;
+                classroom.PrisustvoProjektora = false;
+                classroom.PrisustvoTable = false;
+                classroom.PrisustvoPametneTable = false;
+                classroom.Os = "Windows";
+                classroom.Softver = new List<Software>();
+                classroom.Termini = new List<Appointment>();
+                softwares.Clear();
+                os.SelectedValue = "Windows";
+                classroom.ImenaSoftvera = "";
+            }
+
+        }
+        private void enableFields(bool e)
+        {
+            Id.IsEnabled = e;
+            brRadnihMesta.IsEnabled = e;
+            opis.IsEnabled = e;
+            prisustvoProjektora.IsEnabled = e;
+            prisustvoTable.IsEnabled = e;
+            smartTable.IsEnabled = e;
+            os.IsEnabled = e;
+            allSofts.IsEnabled = e;
+            //Softver.IsEnabled = e;
+        }
+
+        private void lvAllS_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem =
+                    FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem != null)
+                {
+                    // Find the data behind the ListViewItem
+                    Software t = listView.ItemContainerGenerator.
+                        ItemFromContainer(listViewItem) as Software;
+                    // Initialize the drag & drop operation
+                    DataObject dragData = new DataObject("myFormat", t);
+                    DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+
+        private void lvAllS_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void DropList_DragEnter(object sender, DragEventArgs e)
+        {
+           
+           if (!e.Data.GetDataPresent("myFormat") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void DropList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("myFormat"))
+            {
+                Software s = e.Data.GetData("myFormat") as Software;
+                //softwares.Clear();
+                softwares.Add(s);
+
+                classroom.Softver.Add(s);
+                
+
+            }
+        }
+        
+        
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgrMain.SelectedIndex != -1)
+            {
+                classroomShow.RemoveAt(dgrMain.SelectedIndex);
+                
+            }
+            save();
+        }
+        
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Boolean hasError = false;
+            if (addNew || !currId.Equals(classroom.Id))
+            {
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (classroom.Equals(s))
+                    {
+                        MessageBox.Show("ID allready exists. ID must be unique.");
+                        hasError = true;
+                    }
+                }
+            }
+            if (classroom.Id.Equals(""))
+            {
+                MessageBox.Show("ID must be set.");
+                hasError = true;
+            }
+            if (classroom.Opis.Equals("") || classroom.BrRadnihMesta.Equals("") || classroom.PrisustvoProjektora.Equals("") || classroom.PrisustvoTable.Equals("") ||
+                classroom.PrisustvoPametneTable.Equals("") || classroom.Os.Equals("") || classroom.Softver.Count==0)
+            {
+                MessageBox.Show("One or more values doesn't set. All values must be set.");
+                hasError = true;
+            }
+            /*if (!classroom.Os.Equals(classroom.Softver.Os))
+            {
+                MessageBox.Show("Classroom has "+classroom.Os+" and Softver that you chose has "+classroom.Softver.Os+" This two values must be the same");
+                hasError = true;
+            }*/
+            if (classroom.BrRadnihMesta.GetType() != typeof(int))
+            {
+                MessageBox.Show("Number of workers must be real number.");
+                hasError = true;
+            }
+            if (!hasError)
+            {
+                if (addNew)
+                {
+                    Classroom c = new Classroom();
+                    c.Copy(classroom);
+                    //c.Termini = new List<Appointment>();
+                    String s = "";
+                    foreach (Software sp in classroom.Softver)
+                    {
+                        s += sp.Naziv + ",";
+                        Console.WriteLine("ddd " + s);
+                    }
+                    c.ImenaSoftvera = s;
+                    Console.WriteLine(c.Termini.Count);
+                    classroomShow.Add(c);
+                    addNew = false;
+
+                }
+                else if (dgrMain.SelectedIndex != -1)
+                {
+                    int sIndex = dgrMain.SelectedIndex;
+                    String s = "";
+                    foreach(Software sp in classroom.Softver)
+                    {
+                        s += sp.Naziv + ",";
+                    }
+                    classroom.ImenaSoftvera = s;
+                    classroomShow[dgrMain.SelectedIndex].Copy(classroom);
+                    dgrMain.SelectedIndex = sIndex;
+                }
+
+                save();
+                
+                dgrMain.UnselectAllCells();
+                setSelected();
+                enableFields(false);
+            }
+        }
+
+        internal static void save()
+        {
+            MainWindow.classrooms.Clear();
+            foreach (Classroom s in classroomShow)
+            {
+                MainWindow.classrooms.Add(s);
+            }
+            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
+
+            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml"))
+            {
+                List<Classroom> list = new List<Classroom>();
+                foreach (Classroom c in classroomShow)
+                {
+                    MessageBox.Show(c.Id);
+                    list.Add(c);
+                }
+                serializer.Serialize(stream, list);
+            }
+            
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            addNew = true;
+            enableFields(true);
+            dgrMain.UnselectAllCells();
+            setSelected();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow m = new MainWindow();
+            m.Show();
+        }
+        
+        private void os_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("count: " + MainWindow.subjects.Count);
+            if (proj.IsChecked == true && smart.IsChecked == true && table.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoProjektora == true && s.PrisustvoTable == true && s.PrisustvoPametneTable)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+
+                    }
+                }
+            }
+            else if (proj.IsChecked == true && smart.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoProjektora == true && s.PrisustvoPametneTable)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else if (proj.IsChecked == true && table.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoProjektora == true && s.PrisustvoTable == true)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else if (smart.IsChecked == true && table.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoTable == true && s.PrisustvoPametneTable == true)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else if (smart.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoPametneTable == true)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else if (proj.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoProjektora == true)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else if (table.IsChecked == true)
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (s.PrisustvoTable == true)
+                    {
+                        if (osistem.SelectedIndex > -1)
+                        {
+                            if (!osistem.SelectedItem.Equals(""))
+                            {
+                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+                                else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                                {
+                                    classroomShow.Add(s);
+                                }
+
+                            }
+                            else
+                            {
+                                classroomShow.Add(s);
+                            }
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                classroomShow.Clear();
+                foreach (Classroom s in MainWindow.classrooms)
+                {
+                    if (osistem.SelectedIndex > -1)
+                    {
+                        if (!osistem.SelectedItem.Equals(""))
+                        {
+                            if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                            {
+                                classroomShow.Add(s);
+                            }
+                            else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                            {
+                                classroomShow.Add(s);
+                            }
+                            else if (osistem.SelectedItem.Equals("Both") && s.Os.Equals("Both"))
+                            {
+                                classroomShow.Add(s);
+                            }
+
+                        }
+                        else
+                        {
+                            classroomShow.Add(s);
+                        }
+                    }
+                    else
+                    {
+                        classroomShow.Add(s);
+                    }
+
+                }
+            }
+        }
+    }
+}

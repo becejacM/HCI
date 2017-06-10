@@ -1,0 +1,42 @@
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\bin\Debug\HciProject2.exe.config
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\bin\Debug\HciProject2.exe
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\bin\Debug\HciProject2.pdb
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\MainWindow.g.cs
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\App.g.cs
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2_MarkupCompile.cache
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2_MarkupCompile.lref
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\MainWindow.baml
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.g.resources
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.Properties.Resources.resources
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.csproj.GenerateResource.Cache
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.exe
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.pdb
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\HciProject2.csprojResolveAssemblyReference.cache
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\Dialogs\AddClassroomDialog.g.cs
+c:\users\becejac007\documents\visual studio 2015\Projects\HciProject2\HciProject2\obj\Debug\Dialogs\AddClassroomDialog.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\bin\Debug\HciProject2.exe.config
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.exe
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.pdb
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\bin\Debug\HciProject2.exe
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\bin\Debug\HciProject2.pdb
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\AddClassroomDialog.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\MainWindow.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\App.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2_MarkupCompile.cache
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2_MarkupCompile.lref
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\AddClassroomDialog.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\MainWindow.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.g.resources
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.Properties.Resources.resources
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.csproj.GenerateResource.Cache
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\ClassroomTable.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\ClassroomTable.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\AddSubjectDialog.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\SubjectTable.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\AddSubjectDialog.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\SubjectTable.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\CourseTable.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\SoftwareTable.g.cs
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\CourseTable.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\Dialogs\SoftwareTable.baml
+F:\fax\6.semestar\HCI\projekat2\HciProject2\HciProject2\obj\Debug\HciProject2.csprojResolveAssemblyReference.cache
