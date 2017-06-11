@@ -1,159 +1,81 @@
 <?xml version="1.0"?>
 <ArrayOfSubject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Subject>
-    <id>hci</id>
-    <naziv>m</naziv>
+    <id>ooo</id>
+    <naziv>ooo</naziv>
     <smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
+      <id>kurs</id>
+      <naziv>jjj</naziv>
+      <datum>6/11/2017 8:10:40 PM</datum>
+      <opis>jjj</opis>
+      <Id>kurs</Id>
+      <Naziv>jjj</Naziv>
+      <Datum>6/11/2017 8:10:40 PM</Datum>
+      <Opis>jjj</Opis>
     </smer>
-    <opis>m</opis>
+    <opis>ooo</opis>
     <velicinaGrupe>0</velicinaGrupe>
     <minDuzinaTermina>2</minDuzinaTermina>
-    <brTermina>20</brTermina>
+    <brTermina>17</brTermina>
     <prisustvoProjektora>true</prisustvoProjektora>
     <prisustvoTable>false</prisustvoTable>
     <prisustvoPametneTable>false</prisustvoPametneTable>
     <os>Windows</os>
     <softver>
-      <id>idsoft1</id>
-      <naziv>eclipse</naziv>
-      <os>Windows</os>
-      <proizvodjac>proiz1</proizvodjac>
-      <sajt>site1</sajt>
-      <godinaIzdavanja>2000</godinaIzdavanja>
-      <cena>200</cena>
-      <opis>lep</opis>
-      <Id>idsoft1</Id>
-      <Naziv>eclipse</Naziv>
-      <Os>Windows</Os>
-      <Proizvodjac>proiz1</Proizvodjac>
-      <Sajt>site1</Sajt>
-      <GodinaIzdavanja>2000</GodinaIzdavanja>
-      <Cena>200</Cena>
-      <Opis>lep</Opis>
-    </softver>
-    <Id>hci</Id>
-    <Naziv>m</Naziv>
-    <Smer>
       <id>k</id>
       <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
+      <os>Windows</os>
+      <proizvodjac>k</proizvodjac>
+      <sajt>k</sajt>
+      <godinaIzdavanja>k</godinaIzdavanja>
+      <cena>0</cena>
       <opis>k</opis>
       <Id>k</Id>
       <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
+      <Os>Windows</Os>
+      <Proizvodjac>k</Proizvodjac>
+      <Sajt>k</Sajt>
+      <GodinaIzdavanja>k</GodinaIzdavanja>
+      <Cena>0</Cena>
       <Opis>k</Opis>
+    </softver>
+    <Id>ooo</Id>
+    <Naziv>ooo</Naziv>
+    <Smer>
+      <id>kurs</id>
+      <naziv>jjj</naziv>
+      <datum>6/11/2017 8:10:40 PM</datum>
+      <opis>jjj</opis>
+      <Id>kurs</Id>
+      <Naziv>jjj</Naziv>
+      <Datum>6/11/2017 8:10:40 PM</Datum>
+      <Opis>jjj</Opis>
     </Smer>
-    <Opis>m</Opis>
+    <Opis>ooo</Opis>
     <VelicinaGrupe>0</VelicinaGrupe>
     <MinDuzinaTermina>2</MinDuzinaTermina>
-    <BrTermina>20</BrTermina>
+    <BrTermina>17</BrTermina>
     <PrisustvoProjektora>true</PrisustvoProjektora>
     <PrisustvoTable>false</PrisustvoTable>
     <PrisustvoPametneTable>false</PrisustvoPametneTable>
     <Os>Windows</Os>
     <Softver>
-      <id>idsoft1</id>
-      <naziv>eclipse</naziv>
+      <id>k</id>
+      <naziv>k</naziv>
       <os>Windows</os>
-      <proizvodjac>proiz1</proizvodjac>
-      <sajt>site1</sajt>
-      <godinaIzdavanja>2000</godinaIzdavanja>
-      <cena>200</cena>
-      <opis>lep</opis>
-      <Id>idsoft1</Id>
-      <Naziv>eclipse</Naziv>
+      <proizvodjac>k</proizvodjac>
+      <sajt>k</sajt>
+      <godinaIzdavanja>k</godinaIzdavanja>
+      <cena>0</cena>
+      <opis>k</opis>
+      <Id>k</Id>
+      <Naziv>k</Naziv>
       <Os>Windows</Os>
-      <Proizvodjac>proiz1</Proizvodjac>
-      <Sajt>site1</Sajt>
-      <GodinaIzdavanja>2000</GodinaIzdavanja>
-      <Cena>200</Cena>
-      <Opis>lep</Opis>
-    </Softver>
-  </Subject>
-  <Subject>
-    <id>mrs</id>
-    <naziv>m</naziv>
-    <smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
+      <Proizvodjac>k</Proizvodjac>
+      <Sajt>k</Sajt>
+      <GodinaIzdavanja>k</GodinaIzdavanja>
+      <Cena>0</Cena>
       <Opis>k</Opis>
-    </smer>
-    <opis>mmm</opis>
-    <velicinaGrupe>0</velicinaGrupe>
-    <minDuzinaTermina>2</minDuzinaTermina>
-    <brTermina>21</brTermina>
-    <prisustvoProjektora>false</prisustvoProjektora>
-    <prisustvoTable>false</prisustvoTable>
-    <prisustvoPametneTable>false</prisustvoPametneTable>
-    <os>Linux</os>
-    <softver>
-      <id>idsoft2</id>
-      <naziv>vs</naziv>
-      <os>Linux</os>
-      <proizvodjac>proiz2</proizvodjac>
-      <sajt>site2</sajt>
-      <godinaIzdavanja>2000</godinaIzdavanja>
-      <cena>2000</cena>
-      <opis>lep</opis>
-      <Id>idsoft2</Id>
-      <Naziv>vs</Naziv>
-      <Os>Linux</Os>
-      <Proizvodjac>proiz2</Proizvodjac>
-      <Sajt>site2</Sajt>
-      <GodinaIzdavanja>2000</GodinaIzdavanja>
-      <Cena>2000</Cena>
-      <Opis>lep</Opis>
-    </softver>
-    <Id>mrs</Id>
-    <Naziv>m</Naziv>
-    <Smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
-    </Smer>
-    <Opis>mmm</Opis>
-    <VelicinaGrupe>0</VelicinaGrupe>
-    <MinDuzinaTermina>2</MinDuzinaTermina>
-    <BrTermina>21</BrTermina>
-    <PrisustvoProjektora>false</PrisustvoProjektora>
-    <PrisustvoTable>false</PrisustvoTable>
-    <PrisustvoPametneTable>false</PrisustvoPametneTable>
-    <Os>Linux</Os>
-    <Softver>
-      <id>idsoft2</id>
-      <naziv>vs</naziv>
-      <os>Linux</os>
-      <proizvodjac>proiz2</proizvodjac>
-      <sajt>site2</sajt>
-      <godinaIzdavanja>2000</godinaIzdavanja>
-      <cena>2000</cena>
-      <opis>lep</opis>
-      <Id>idsoft2</Id>
-      <Naziv>vs</Naziv>
-      <Os>Linux</Os>
-      <Proizvodjac>proiz2</Proizvodjac>
-      <Sajt>site2</Sajt>
-      <GodinaIzdavanja>2000</GodinaIzdavanja>
-      <Cena>2000</Cena>
-      <Opis>lep</Opis>
     </Softver>
   </Subject>
 </ArrayOfSubject>

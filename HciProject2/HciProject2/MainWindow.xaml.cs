@@ -1,5 +1,6 @@
 ﻿using HciProject2.Dialogs;
 using HciProject2.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,6 +36,7 @@ namespace HciProject2
         public static ObservableCollection<Subject> subjectsShow { get; set; }
         public static ObservableCollection<Classroom> classroomsShow { get; set; }
 
+        Shema shema;
         Point startPoint = new Point();
         Classroom currClassroom;
         String currDay;
@@ -47,6 +49,7 @@ namespace HciProject2
         int brisiOvaj;
         bool dropFromSubjects;
         int selClass;
+        public static FileName fileName;
 
         public MainWindow()
         {
@@ -59,6 +62,8 @@ namespace HciProject2
             subjects = new ObservableCollection<Subject>();
             subjectsShow = new ObservableCollection<Subject>();
             classroomsShow = new ObservableCollection<Classroom>();
+            shema = new Shema();
+            fileName = new FileName();
 
             currClassroom = new Classroom();
             currDay = "";
@@ -113,7 +118,7 @@ namespace HciProject2
 
         public void readFromFile()
         {
-            //read softwares
+            /*//read softwares
             XmlSerializer serializer0 = new XmlSerializer(typeof(List<Software>));
 
 
@@ -170,6 +175,56 @@ namespace HciProject2
                     subjectsShow.Add(item);
                 }
                     
+            }*/
+            XmlSerializer serializer2 = new XmlSerializer(typeof(FileName));
+
+
+            using (FileStream stream = File.OpenRead(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/filePath.xml"))
+            {
+                FileName dezerializedList = (FileName)serializer2.Deserialize(stream);
+                //foreach (var item in dezerializedList)
+                
+                fileName = dezerializedList;
+                //}
+
+            }
+
+            //MessageBox.Show(fileName.Name);
+            XmlSerializer serializer0 = new XmlSerializer(typeof(List<Shema>));
+
+            Shema s = new Shema();
+
+            using (FileStream stream = File.OpenRead(fileName.Name))
+            {
+                List<Shema> dezerializedList = (List<Shema>)serializer0.Deserialize(stream);
+                foreach (var item in dezerializedList)
+                    s = (Shema)item;
+
+                bool b = true;
+
+                foreach (Classroom c1 in s.Classrooms)
+                {
+                    if (b)
+                    {
+                        currClassroom.Copy(c1);
+                    }
+                    classrooms.Add(c1);
+                    classroomsShow.Add(c1);
+
+                }
+                foreach (Subject s1 in s.Subjects)
+                {
+                    subjects.Add(s1);
+                    subjectsShow.Add(s1);
+                }
+                foreach (Software ss1 in s.Softwares)
+                {
+                    softwares.Add(ss1);
+                }
+                foreach (Course cc1 in s.Courses)
+                {
+                    courses.Add(cc1);
+                }
             }
             br.SelectedValue = "1";
             /*foreach (ComboBoxItem cbi in mode.Items)
@@ -209,7 +264,8 @@ namespace HciProject2
             readFromFile();
             Window w = new ClassroomTable();
             w.ShowDialog();
-            this.Close();
+            
+            //this.Close();
 
         }
         
@@ -224,7 +280,7 @@ namespace HciProject2
             readFromFile();
             Window w = new SubjectTable();
             w.ShowDialog();
-            this.Close();
+            //this.Close();
         }
 
         private void MenuItem_Click_7(object sender, RoutedEventArgs e)
@@ -238,7 +294,7 @@ namespace HciProject2
             readFromFile();
             Window w = new CourseTable();
             w.ShowDialog();
-            this.Close();
+            //this.Close();
 
         }
         
@@ -253,7 +309,7 @@ namespace HciProject2
             readFromFile();
             Window w = new SoftwareTable();
             w.ShowDialog();
-            this.Close();
+            //this.Close();
 
         }
 
@@ -519,7 +575,7 @@ namespace HciProject2
                         }
                         if (!currClassroom.Os.Equals(s.Os))
                         {
-                            MessageBox.Show("Subject has " + s.Os + " but classroom has " + s.Os);
+                            MessageBox.Show("Subject has " + s.Os + " but classroom has " + currClassroom.Os);
                             return;
                         }
                     }
@@ -746,7 +802,8 @@ namespace HciProject2
             //Grid.SetRow(txt, Grid.GetRow(textBlock));
             //Grid.SetRowSpan(textBlock, 4);
 
-            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
+            save();
+            /*File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
 
@@ -758,7 +815,7 @@ namespace HciProject2
                     list.Add(c);
                 }
                 serializer.Serialize(stream, list);
-            }
+            }*/
 
             if (currMode.Equals("one day"))
             {
@@ -2216,6 +2273,200 @@ namespace HciProject2
                 }
                 serializer.Serialize(stream, list);
             }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Document";
+            dlg.DefaultExt = ".xml";
+            dlg.Filter = "Xml documents (.xml)|*.xml"; // Filter files by extension 
+
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                // Save document 
+                string filename = dlg.FileName;
+                fileName.Name = filename;
+
+                File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/filePath.xml", "");
+                XmlSerializer serializer2 = new XmlSerializer(typeof(FileName));
+
+                using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/filePath.xml"))
+                {
+                    serializer2.Serialize(stream, fileName);
+                }
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Shema>));
+
+                using (FileStream stream = File.OpenWrite(filename))
+                {
+                    List<Shema> list = new List<Shema>();
+                    List<Classroom> c = new List<Classroom>();
+                    foreach(Classroom c1 in classrooms)
+                    {
+                        c.Add(c1);
+                    }
+                    List<Subject> s = new List<Subject>();
+                    foreach (Subject s1 in subjects)
+                    {
+                        s.Add(s1);
+                    }
+                    List<Software> ss = new List<Software>();
+                    foreach (Software ss1 in softwares)
+                    {
+                        ss.Add(ss1);
+                    }
+                    List<Course> cc = new List<Course>();
+                    foreach (Course cc1 in courses)
+                    {
+                        cc.Add(cc1);
+                    }
+                    Shema shema = new Shema(c,s,ss,cc);
+                    list.Add(shema);
+                    serializer.Serialize(stream, list);
+                }
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialogXML = new OpenFileDialog();
+            openFileDialogXML.DefaultExt = ".xml";
+            openFileDialogXML.Filter = "Xml documents (.xml)|*.xml";
+            //openFileDialogXML.RestoreDirectory = true;
+
+            Nullable<bool> result = openFileDialogXML.ShowDialog();
+            if (result == true)
+
+            {
+                //MessageBox.Show(openFileDialogXML.FileName);
+                fileName.Name = openFileDialogXML.FileName;
+
+                File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/filePath.xml", "");
+
+                XmlSerializer serializer = new XmlSerializer(typeof(FileName));
+
+                using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/filePath.xml"))
+                {
+                    serializer.Serialize(stream, fileName);
+                }
+                //  The stream will hold the results of opening the XML
+                using (var myStream = openFileDialogXML.OpenFile())
+                {
+                    try
+                    {
+                        //  Successfully return the XML
+                        XmlSerializer serializer0 = new XmlSerializer(typeof(List<Shema>));
+
+                        Shema s = new Shema();
+                        classroomsShow.Clear();
+                        subjectsShow.Clear();
+                        classrooms.Clear();
+                        subjects.Clear();
+                        courses.Clear();
+                        softwares.Clear();
+                        List<Shema> dezerializedList = (List<Shema>)serializer0.Deserialize(myStream);
+                        foreach (var item in dezerializedList)
+                            s = (Shema)item;
+
+                        bool b = true;
+                        foreach (Classroom c1 in s.Classrooms)
+                        {
+                            if (b)
+                            {
+                                currClassroom.Copy(c1);
+                            }
+                            classrooms.Add(c1);
+                            classroomsShow.Add(c1);
+                        }
+                        foreach (Subject s1 in s.Subjects)
+                        {
+                            subjects.Add(s1);
+                            subjectsShow.Add(s1);
+                        }
+                        foreach (Software ss1 in s.Softwares)
+                        {
+                            softwares.Add(ss1);
+                        }
+                        foreach (Course cc1 in s.Courses)
+                        {
+                            courses.Add(cc1);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("This file can't load");
+                        return;
+                    }
+
+                }
+            }
+            
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            classrooms.Clear();
+            subjects.Clear();
+            courses.Clear();
+            softwares.Clear();
+            classroomsShow.Clear();
+            subjectsShow.Clear();
+            grid.Children.Clear();
+            grid.RowDefinitions.Clear();
+            grid.ColumnDefinitions.Clear();
+            helpGrid.Children.Clear();
+            helpGrid.RowDefinitions.Clear();
+            helpGrid.ColumnDefinitions.Clear();
+            fileName.Name = "";
+            MenuItem_Click(sender,e);
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void save()
+        {
+            if (!fileName.Name.Equals(""))
+            {
+                File.WriteAllText(fileName.Name, "");
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Shema>));
+
+                using (FileStream stream = File.OpenWrite(fileName.Name))
+                {
+                    List<Shema> list = new List<Shema>();
+                    List<Classroom> c = new List<Classroom>();
+                    foreach (Classroom c1 in classrooms)
+                    {
+                        c.Add(c1);
+                    }
+                    List<Subject> s = new List<Subject>();
+                    foreach (Subject s1 in subjects)
+                    {
+                        s.Add(s1);
+
+                    }
+                    List<Software> ss = new List<Software>();
+                    foreach (Software ss1 in softwares)
+                    {
+                        ss.Add(ss1);
+                    }
+                    List<Course> cc = new List<Course>();
+                    foreach (Course cc1 in courses)
+                    {
+                        cc.Add(cc1);
+                    }
+                    Shema shema = new Shema(c, s, ss, cc);
+                    list.Add(shema);
+                    serializer.Serialize(stream, list);
+                }
+            }
+            
+            
         }
     }
 }

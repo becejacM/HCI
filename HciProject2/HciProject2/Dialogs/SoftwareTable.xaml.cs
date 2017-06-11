@@ -381,6 +381,49 @@ namespace HciProject2.Dialogs
             dgrMain.UnselectAllCells();
             setSelected();
             enableFields(false);
+
+            saveFile();
+        }
+
+        private void saveFile()
+        {
+            if (!MainWindow.fileName.Name.Equals(""))
+            {
+                File.WriteAllText(MainWindow.fileName.Name, "");
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Shema>));
+
+                using (FileStream stream = File.OpenWrite(MainWindow.fileName.Name))
+                {
+                    List<Shema> list = new List<Shema>();
+                    List<Classroom> c = new List<Classroom>();
+                    foreach (Classroom c1 in MainWindow.classrooms)
+                    {
+                        c.Add(c1);
+                    }
+                    List<Subject> s = new List<Subject>();
+                    foreach (Subject s1 in MainWindow.subjects)
+                    {
+                        s.Add(s1);
+
+                    }
+                    List<Software> ss = new List<Software>();
+                    foreach (Software ss1 in MainWindow.softwares)
+                    {
+                        ss.Add(ss1);
+                    }
+                    List<Course> cc = new List<Course>();
+                    foreach (Course cc1 in MainWindow.courses)
+                    {
+                        cc.Add(cc1);
+                    }
+                    Shema shema = new Shema(c, s, ss, cc);
+                    list.Add(shema);
+                    serializer.Serialize(stream, list);
+                }
+            }
+
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -392,8 +435,6 @@ namespace HciProject2.Dialogs
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow m = new MainWindow();
-            m.Show();
         }
 
         private void saveSub()
@@ -733,7 +774,111 @@ namespace HciProject2.Dialogs
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            if (search.Text.Equals(":All"))
+            {
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    softwareShow.Add(ss);
+                }
+                return;
+            }
 
+            if (search.Text.Equals("") || !search.Text.StartsWith(":"))
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            //:Id c1 || :Description l
+            string[] lines = search.Text.Split(' ');
+            if (lines.Length != 2)
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            string prvi = lines[0].Substring(1);
+            string drugi = lines[1];
+            softwareShow.Clear();
+            if (prvi.Equals("Id"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Id.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Name"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Naziv.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Os"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Os.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Manufacturer"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Proizvodjac.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Site"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Sajt.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("YearOfPublication"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.GodinaIzdavanja.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Price"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Cena==Int32.Parse(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Description"))
+            {
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (ss.Opis.Contains(drugi))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+            }
         }
     }
 }
