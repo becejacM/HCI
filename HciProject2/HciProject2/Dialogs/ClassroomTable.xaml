@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HciProject2.Dialogs"
         mc:Ignorable="d"
-        Title="ClassroomTable" Height="500" Width="800">
+        Title="ClassroomTable" Height="700" Width="1000"
+        ResizeMode="NoResize">
     <Window.Resources>
         <ObjectDataProvider x:Key="AData"></ObjectDataProvider>
     </Window.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -38,8 +40,22 @@
                       VerticalAlignment="Center">
             </ComboBox>
         </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">SEARCH:</Label>
+            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :NumberOfWorkers 2. :All for all classrooms"  MaxLength="150" Grid.Column="1" Grid.Row="0" />
+            <Button x:Name="btnSearch" Grid.Column="3" Grid.Row="0" Content="Search" ToolTip="Click to search" Click="btnSearch_Click" Margin="10" Padding="20,5" />
+        </Grid>
         <DataGrid
-            Grid.Row="1" Grid.Column="0" ToolTip="Select item to modify/delete" x:Name="dgrMain" 
+            Grid.Row="2" Grid.Column="0" ToolTip="Select item to modify/delete" x:Name="dgrMain" 
             ItemsSource="{Binding MainWindow.classroms}" IsReadOnly="True" SelectionChanged="dgrMain_SelectionChanged" 
             AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" >
             <DataGrid.Columns>
@@ -50,11 +66,11 @@
                 <DataGridTextColumn Header="Table" Binding="{Binding PrisustvoTable}"/>
                 <DataGridTextColumn Header="Smart table" Binding="{Binding PrisustvoPametneTable}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Os" Binding="{Binding Os}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Softver" Binding="{Binding ImenaSoftvera}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Software" Binding="{Binding ImenaSoftvera}"></DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="2" Grid.Column="0">
+        <Grid Grid.Row="3" Grid.Column="0">
 
             <Grid >
                 <Grid.ColumnDefinitions>
@@ -106,12 +122,15 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <ComboBox Grid.Column="0" Grid.Row="0" x:Name="o"  SelectedItem="{Binding Path=o}" SelectionChanged="o_SelectionChanged"
+                      VerticalAlignment="Center">
+                    </ComboBox>
                     <GroupBox Grid.Column="0" Grid.Row="1" Header="All Softwares" BorderBrush="Black">
                         <ListView Name="allSofts" ToolTip="Drag and drop to the other board" ItemsSource="{Binding MainWindow.softwares}"
                               PreviewMouseLeftButtonDown="lvAllS_PreviewMouseLeftButtonDown"
