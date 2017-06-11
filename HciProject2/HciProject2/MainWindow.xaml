@@ -76,7 +76,8 @@
                         </ComboBox>
                         <Label Name="classlabel" ToolTip="Classroom." Grid.Column="2" Grid.Row="0">Classroom:</Label>
                         <ComboBox Grid.Column="3" Grid.Row="0" x:Name="classroom"  SelectionChanged="classroom_SelectionChanged"
-                              DropDownClosed="classroom_DropDownClosed"
+                                DisplayMemberPath="Id"
+                                  DropDownClosed="classroom_DropDownClosed"
                       VerticalAlignment="Center"></ComboBox>
                         <Label Name="daylabel" ToolTip="Day." Grid.Column="2" Grid.Row="0">Day:</Label>
                         <ComboBox Grid.Column="3" Grid.Row="0" x:Name="day"   SelectionChanged="day_SelectionChanged"
@@ -98,7 +99,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters for subjects:</Label>
+                    <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters:</Label>
                     <CheckBox Grid.Column="1" Grid.Row="0" x:Name="proj" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">Projector</CheckBox>
                     <CheckBox Grid.Column="2" Grid.Row="0" x:Name="smart" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">Smart table</CheckBox>
                     <CheckBox Grid.Column="3" Grid.Row="0" x:Name="table" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">Table</CheckBox>
@@ -131,8 +132,8 @@
                                     <Canvas Background="{Binding Color}" />
                                     <TextBlock Text="Name: " />
                                     <TextBlock Text="{Binding Naziv}" />
-                                    <TextBlock Text=", Course: " />
-                                    <TextBlock Text="{Binding Smer.Naziv}" />
+                                    <TextBlock Text=", Softver: " />
+                                    <TextBlock Text="{Binding Softver.Naziv}" />
                                     <TextBlock Text=", Description: " />
                                     <TextBlock Text="{Binding Opis}" />
                                     <TextBlock Text=", Min size of appointment: " />

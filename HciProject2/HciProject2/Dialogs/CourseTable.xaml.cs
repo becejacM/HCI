@@ -109,8 +109,35 @@ namespace HciProject2.Dialogs
         {
             if (dgrMain.SelectedIndex != -1)
             {
-                courseShow.RemoveAt(dgrMain.SelectedIndex);
+                bool b = false;
+                foreach(Subject c in MainWindow.subjects)
+                {
+                    if (c.Smer.Id.Equals(courseShow[dgrMain.SelectedIndex].Id)){
+                        b = true;
+                    }
+                }
+                if (b)
+                {
+                    if (MessageBox.Show("This will delete subjects with this course. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //do no stuff
+                        return;
+                    }
+                    else
+                    {
+                        //do yes stuff
+                        for(int i = MainWindow.subjects.Count - 1;i>-1; i--)
+                        {
+                            if (MainWindow.subjects[i].Smer.Id.Equals(courseShow[dgrMain.SelectedIndex].Id))
+                            {
+                                MainWindow.subjects.RemoveAt(i);
+                            }
+                        }
+                        courseShow.RemoveAt(dgrMain.SelectedIndex);
 
+                        saveSub();
+                    }
+                }
             }
             save();
         }
@@ -289,6 +316,22 @@ namespace HciProject2.Dialogs
         {
             MainWindow m = new MainWindow();
             m.Show();
+        }
+
+        private void saveSub()
+        {
+            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml", "");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Subject>));
+
+            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml"))
+            {
+                List<Subject> list = new List<Subject>();
+                foreach (Subject c in MainWindow.subjects)
+                {
+                    list.Add(c);
+                }
+                serializer.Serialize(stream, list);
+            }
         }
     }
 }

@@ -46,6 +46,7 @@ namespace HciProject2
         List<Appointment> helpLista;
         int brisiOvaj;
         bool dropFromSubjects;
+        int selClass;
 
         public MainWindow()
         {
@@ -70,6 +71,7 @@ namespace HciProject2
             brisiOvaj = -1;
             allSubjects.ItemsSource = subjectsShow;
             dropFromSubjects = false;
+            selClass = -1;
 
             br.Items.Add("1");
             br.Items.Add("2");
@@ -77,16 +79,10 @@ namespace HciProject2
             br.Items.Add("4");
             br.Items.Add("5");
             br.Items.Add("6");
-            readFromFile();
+
 
             mode.Items.Add("one day");
             mode.Items.Add("whole week");
-
-            day.Visibility = Visibility.Collapsed;
-            daylabel.Visibility = Visibility.Collapsed;
-
-            classroom.Visibility = Visibility.Collapsed;
-            classlabel.Visibility = Visibility.Collapsed;
 
             day.Items.Add("Monday");
             day.Items.Add("Tuesday");
@@ -95,12 +91,23 @@ namespace HciProject2
             day.Items.Add("Friday");
             day.Items.Add("Saturday");
 
+            classroom.ItemsSource = classroomsShow;
+
+            readFromFile();
+
+
+            day.Visibility = Visibility.Collapsed;
+            daylabel.Visibility = Visibility.Collapsed;
+
+            classroom.Visibility = Visibility.Collapsed;
+            classlabel.Visibility = Visibility.Collapsed;
+
+
             os.Items.Add("");
             os.Items.Add("Windows");
             os.Items.Add("Linux");
             os.Items.Add("Both");
-            
-            
+
 
         }
 
@@ -129,7 +136,7 @@ namespace HciProject2
             }
             
             //read classrooms
-            XmlSerializer serializer1 = new XmlSerializer(typeof(List<Classroom>));
+           XmlSerializer serializer1 = new XmlSerializer(typeof(List<Classroom>));
 
             using (FileStream stream = File.OpenRead(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml"))
             {
@@ -145,13 +152,13 @@ namespace HciProject2
                     }
                     classrooms.Add(item);
                     classroomsShow.Add(item);
-                    classroom.Items.Add(item.Id);
+                    //classroom.Items.Add(item.Id);
                     
                 }
                 
             }
             //read subjects
-            XmlSerializer serializer2 = new XmlSerializer(typeof(List<Subject>));
+           XmlSerializer serializer2 = new XmlSerializer(typeof(List<Subject>));
 
 
             using (FileStream stream = File.OpenRead(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml"))
@@ -179,10 +186,27 @@ namespace HciProject2
             Handle();
             ucitaj();*/
 
+            /*if (classroomsShow.Count > 0)
+            {
+                object o = new object();
+                EventArgs e = new EventArgs();
+                mode.SelectedIndex = 0;
+                day.SelectedIndex = 0;
+                mode_DropDownClosed(o, e);
+                day_DropDownClosed(o, e);
+            }
+            */
         }
 
         public void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {//view all classrooms
+            softwares.Clear();
+            courses.Clear();
+            classrooms.Clear();
+            subjects.Clear();
+            subjectsShow.Clear();
+            classroomsShow.Clear();
+            readFromFile();
             Window w = new ClassroomTable();
             w.ShowDialog();
             this.Close();
@@ -191,6 +215,13 @@ namespace HciProject2
         
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {//view all subject
+            softwares.Clear();
+            courses.Clear();
+            classrooms.Clear();
+            subjects.Clear();
+            subjectsShow.Clear();
+            classroomsShow.Clear();
+            readFromFile();
             Window w = new SubjectTable();
             w.ShowDialog();
             this.Close();
@@ -198,6 +229,13 @@ namespace HciProject2
 
         private void MenuItem_Click_7(object sender, RoutedEventArgs e)
         {//view all smer
+            softwares.Clear();
+            courses.Clear();
+            classrooms.Clear();
+            subjects.Clear();
+            subjectsShow.Clear();
+            classroomsShow.Clear();
+            readFromFile();
             Window w = new CourseTable();
             w.ShowDialog();
             this.Close();
@@ -206,6 +244,13 @@ namespace HciProject2
         
         private void MenuItem_Click_9(object sender, RoutedEventArgs e)
         {//view all softwares
+            softwares.Clear();
+            courses.Clear();
+            classrooms.Clear();
+            subjects.Clear();
+            subjectsShow.Clear();
+            classroomsShow.Clear();
+            readFromFile();
             Window w = new SoftwareTable();
             w.ShowDialog();
             this.Close();
@@ -286,15 +331,7 @@ namespace HciProject2
                     return;
                 }
             }*/
-
-            if (currMode.Equals("one day"))
-            {
-                ucitajZaDan();
-            }
-            else
-            {
-                ucitaj();
-            }
+            
             if (gridHelper)
             {
                 Appointment listItem = item.GetData("myFormatA") as Appointment;
@@ -314,6 +351,8 @@ namespace HciProject2
                 }
                 int red = Int32.Parse(Grid.GetRow(textBlock).ToString());
                 broj = listItem.Velicina;
+
+                Console.WriteLine("iispisssss: " + grid.Children.Count+"  "+Grid.GetRow(textBlock)+"   "+Grid.GetColumn(textBlock));
                 //zastita da se ne preklapaju termini
                 for (int i = 0; i < broj * 4; i++)
                 {
@@ -321,12 +360,21 @@ namespace HciProject2
                         .Where(x => Grid.GetRow(x) == Grid.GetRow(textBlock) + i && Grid.GetColumn(x) == Grid.GetColumn(textBlock))
                         .FirstOrDefault(); 
                     TextBlock tt = (TextBlock)ch;
-                    Console.WriteLine("reeeed: " + Grid.GetRow(tt) + "   kolona: " + Grid.GetColumn(tt)+" text: "+tt.Text);
+                    //if (tt != null)
+                    //{
+                    
+                        Console.WriteLine("reeeed: " + Grid.GetRow(tt) + "   kolona: " + Grid.GetColumn(tt) + " text: " + tt.Text);
                     if (tt.Tag != null)
                     {
-                        MessageBox.Show("Your appointment can't fit.");
-                        return;
-                    }
+                        Appointment aaa = (Appointment)tt.Tag;
+                        if (!aaa.Id.Equals(listItem.Id))
+                        {
+                            MessageBox.Show("Your appointment can't fit.");
+                            return;
+                        }
+                        
+                   }
+                    //}
                 }
                 textBlock.Text = listItem.Predmet;
                 textBlock.Background = new SolidColorBrush(Colors.Red);
@@ -437,19 +485,7 @@ namespace HciProject2
                         return;
                     }
                 }
-                textBlock.Text = listItem.Predmet;
-                textBlock.Background = new SolidColorBrush(Colors.Red);
-                Console.WriteLine("mode help");
-                Console.WriteLine(listItem.Velicina + " mmmmmmmmmmm");
-
-                var ch = helpGrid.Children.Cast<UIElement>()
-                    .Where(x => Grid.GetRow(x) == listItem.Red && Grid.GetColumn(x) == listItem.Kolona)
-                    .FirstOrDefault(); ;
-                TextBlock tt = (TextBlock)ch;
-                helpGrid.Children.Remove(tt);
-                helpLista.Remove(listItem);
                 int kolona;
-                //Classroom old = new Classroom();
                 if (currMode.Equals("one day"))
                 {
                     kolona = currIndexOfDay;
@@ -462,10 +498,57 @@ namespace HciProject2
                     kolona = Int32.Parse(Grid.GetColumn(textBlock).ToString());
                 }
                 int red = Int32.Parse(Grid.GetRow(textBlock).ToString());
+                foreach(Subject s in subjects)
+                {
+                    if (s.Naziv.Equals(listItem.Predmet))
+                    {
+                        if (!currClassroom.PrisustvoProjektora && s.PrisustvoProjektora)
+                        {
+                            MessageBox.Show("Subject has projector, but classroom don't!");
+                            return;
+                        }
+                        if (!currClassroom.PrisustvoTable && s.PrisustvoTable)
+                        {
+                            MessageBox.Show("Subject has table, but classroom don't!");
+                            return;
+                        }
+                        if (!currClassroom.PrisustvoPametneTable && s.PrisustvoPametneTable)
+                        {
+                            MessageBox.Show("Subject has smart table, but classroom don't!");
+                            return;
+                        }
+                        if (!currClassroom.Os.Equals(s.Os))
+                        {
+                            MessageBox.Show("Subject has " + s.Os + " but classroom has " + s.Os);
+                            return;
+                        }
+                    }
+                }
+                
+                textBlock.Text = listItem.Predmet;
+                textBlock.Background = new SolidColorBrush(Colors.Red);
+                Console.WriteLine("mode help");
+                Console.WriteLine(listItem.Velicina + " mmmmmmmmmmm");
+
+                var ch = helpGrid.Children.Cast<UIElement>()
+                    .Where(x => Grid.GetRow(x) == listItem.Red && Grid.GetColumn(x) == listItem.Kolona)
+                    .FirstOrDefault(); ;
+                TextBlock tt = (TextBlock)ch;
+                helpGrid.Children.Remove(tt);
+                helpLista.Remove(listItem);
+                //Classroom old = new Classroom();
+                
                 listItem.Red = red;
                 listItem.Kolona = kolona;
                 //listItem.Status = "ok";
-
+                foreach (Subject s in subjects)
+                {
+                    if (s.Naziv.Equals(listItem.Predmet))
+                    {
+                        s.BrTermina -= 1;
+                    }
+                }
+                saveSub();
                 if (currMode.Equals("one day"))
                 {
                     bool find = false;
@@ -579,17 +662,8 @@ namespace HciProject2
                     MessageBox.Show("All appointments are at schedule.");
                     return;
                 }
-                foreach(Subject s in subjects)
-                {
-                    if (s.Id.Equals(listItem.Id))
-                    {
-                        s.BrTermina -= 1;
-                    }
-                }
-                saveSub();
-                textBlock.Text = listItem.Naziv;
-                textBlock.Background = new SolidColorBrush(Colors.Red);
-                Console.WriteLine("mode sub");
+                
+                
 
                 int kolona;
                 if (currMode.Equals("one day"))
@@ -603,6 +677,51 @@ namespace HciProject2
                     kolona = Int32.Parse(Grid.GetColumn(textBlock).ToString());
                 }
                 int red = Int32.Parse(Grid.GetRow(textBlock).ToString());
+
+                if(!currClassroom.PrisustvoProjektora && listItem.PrisustvoProjektora)
+                {
+                    MessageBox.Show("Subject has projector, but classroom don't!");
+                    return;
+                }
+                if (!currClassroom.PrisustvoTable && listItem.PrisustvoTable)
+                {
+                    MessageBox.Show("Subject has table, but classroom don't!");
+                    return;
+                }
+                if (!currClassroom.PrisustvoPametneTable && listItem.PrisustvoPametneTable)
+                {
+                    MessageBox.Show("Subject has smart table, but classroom don't!");
+                    return;
+                }
+                if (!currClassroom.Os.Equals(listItem.Os))
+                {
+                    MessageBox.Show("Subject has "+listItem.Os+" but classroom has "+ currClassroom.Os);
+                    return;
+                }
+                bool t = false;
+                foreach(Software s in currClassroom.Softver)
+                {
+                    if (s.Id.Equals(listItem.Softver.Id))
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    MessageBox.Show("Classroom don't have "+listItem.Softver.Id + "software");
+                    return;
+                }
+                textBlock.Text = listItem.Naziv;
+                textBlock.Background = new SolidColorBrush(Colors.Red);
+                Console.WriteLine("mode sub");
+                foreach (Subject s in subjects)
+                {
+                    if (s.Id.Equals(listItem.Id))
+                    {
+                        s.BrTermina -= 1;
+                    }
+                }
+                saveSub();
                 Random rnd = new Random();
                 int num = rnd.Next(1, 1000000) + currClassroom.Termini.Count + 1;
                 String id =currClassroom.Id+ num;
@@ -669,14 +788,20 @@ namespace HciProject2
 
         private void Handle()
         {
-            foreach(Classroom c in classrooms)
+            if (classroom.SelectedIndex > -1)
             {
-                if (c.Id.Equals(classroom.SelectedItem.ToString()))
+                Classroom sel = (Classroom)classroom.SelectedItem;
+                foreach (Classroom c in classrooms)
                 {
-                    currClassroom.Copy(c);
+                    if (c.Id.Equals(sel.Id))
+                    {
+                        Console.WriteLine("select: " + sel.Id);
+                        currClassroom.Copy(c);
+                        selClass = classroom.SelectedIndex;
+                    }
                 }
+                ucitaj();
             }
-            ucitaj();
             
         }
 
@@ -702,8 +827,54 @@ namespace HciProject2
                 grid.ColumnDefinitions.Add(gridCol1);
                 
             }
-            ucitajTextblokove();
+            bool f = false;
+            foreach (Classroom c in classroomsShow)
+            {
+                if (c.Id.Equals(currClassroom.Id))
+                {
+                    f = true;
+                }
+            }
+            if (classroomsShow.Count >0 && !f)
+            {
+                classroom.SelectedIndex = 0;
+                Handle();
+            }
+            if (classroomsShow.Count == 0)
+            {
+                
+                grid.Children.Clear();
+                grid.RowDefinitions.Clear();
+                grid.ColumnDefinitions.Clear();
+                RowDefinition gridRow1 = new RowDefinition();
+                grid.RowDefinitions.Add(gridRow1);
 
+                ColumnDefinition gridCol1 = new ColumnDefinition();
+                grid.ColumnDefinitions.Add(gridCol1);
+
+                TextBlock textBlockb = new TextBlock();
+                textBlockb.Text = "Nothing to show";
+                textBlockb.Background = new SolidColorBrush(Colors.Red);
+
+                textBlockb.TextAlignment = TextAlignment.Center;
+                textBlockb.TextWrapping = TextWrapping.Wrap;
+                Grid.SetRow(textBlockb, 0);
+                Grid.SetColumn(textBlockb, 0);
+                grid.Children.Add(textBlockb);
+                return;
+            }
+            int b = 0;
+            foreach(Classroom c in classroomsShow)
+            {
+                if (c.Id.Equals(currClassroom.Id))
+                {
+                    selClass = b;
+                }
+                b += 1;
+            }
+            classroom.SelectedIndex = selClass;
+            ucitajTextblokove();
+            Console.WriteLine(currClassroom.Id + " ccccccccccccccccccccccccccccccc");
             foreach (Appointment a in currClassroom.Termini)
             {
                 if (a.Status.Equals("ok"))
@@ -833,9 +1004,33 @@ namespace HciProject2
                 grid.ColumnDefinitions.Add(gridCol1);
 
             }
-            ucitajTextblokove();
+            Console.WriteLine("fsdsdcf " + currIndexOfDay);
 
             int num = 1;
+            if (classroomsShow.Count == 0)
+            {
+                grid.Children.Clear();
+                grid.RowDefinitions.Clear();
+                grid.ColumnDefinitions.Clear();
+                RowDefinition gridRow1 = new RowDefinition();
+                grid.RowDefinitions.Add(gridRow1);
+
+                ColumnDefinition gridCol1 = new ColumnDefinition();
+                grid.ColumnDefinitions.Add(gridCol1);
+
+                TextBlock textBlockb = new TextBlock();
+                textBlockb.Text = "Nothing to show";
+                textBlockb.Background = new SolidColorBrush(Colors.Red);
+
+                textBlockb.TextAlignment = TextAlignment.Center;
+                textBlockb.TextWrapping = TextWrapping.Wrap;
+                Grid.SetRow(textBlockb, 0);
+                Grid.SetColumn(textBlockb, 0);
+                grid.Children.Add(textBlockb);
+                return;
+            }
+            ucitajTextblokove();
+
             foreach (Classroom c in classroomsShow)
             {
                 Console.WriteLine("num: " + num);
@@ -845,7 +1040,7 @@ namespace HciProject2
                     if (a.Kolona == currIndexOfDay && a.Status.Equals("ok"))
                     {
                         var childs = grid.Children.Cast<UIElement>()
-                        .Where(x => Grid.GetRow(x) == a.Red && Grid.GetColumn(x) == a.Kolona)
+                        .Where(x => Grid.GetRow(x) == a.Red && Grid.GetColumn(x) == num)
                         .FirstOrDefault(); ;
                         TextBlock t = (TextBlock)childs;
                         grid.Children.Remove(t);
@@ -979,14 +1174,18 @@ namespace HciProject2
 
         private void ucitajTextblokove()
         {
+            helpGrid.Children.Clear();
+            helpGrid.RowDefinitions.Clear();
+            helpGrid.ColumnDefinitions.Clear();
             grid.ShowGridLines = true;
-            Console.WriteLine("grid pre:" + grid.Children.Count);
+            Console.WriteLine("grid pre:" + grid.Children.Count+"    "+classroomsShow.Count);
             if (mode.SelectedItem.ToString().Equals("one day"))
             {
                 for (int i = 1; i <= 65; i++)
                 {
                     for (int j = 1; j <= classroomsShow.Count; j++)
                     {
+                        Console.WriteLine(i+"        "+j);
                         TextBlock textBlockt = new TextBlock();
                         textBlockt.Height = ActualHeight / 30;
                         Grid.SetRow(textBlockt, i);
@@ -1074,6 +1273,8 @@ namespace HciProject2
         private void ucitajUcionice()
         {
             int i = 1;
+            //classroom.Items.Clear();
+            Console.WriteLine("brooooooj: " + classroomsShow.Count);
             foreach (Classroom c in classroomsShow)
                 {
                 currClassromForDay[i] = c;
@@ -1085,6 +1286,7 @@ namespace HciProject2
                 Grid.SetColumn(textBlockt, i);
                 grid.Children.Add(textBlockt);
                 i += 1;
+                //classroom.Items.Add(c.Id);
                 }
         }
         private void day_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1280,6 +1482,14 @@ namespace HciProject2
                             }
                         }
                     }
+                    foreach (Subject s in subjects)
+                    {
+                        if (s.Naziv.Equals(a.Predmet))
+                        {
+                            s.BrTermina += 1;
+                        }
+                    }
+                    saveSub();
                     //dropFromHelpGrid = true;
                     gridHelper = false;
                     a.Red = Int32.Parse(Grid.GetRow(textBlock).ToString());
@@ -1680,8 +1890,8 @@ namespace HciProject2
 
                 }
             }
-            if (currMode.Equals("one day"))
-            {
+            //if (currMode.Equals("one day"))
+            //{
 
 
                 Console.WriteLine("count: " + MainWindow.subjects.Count);
@@ -1980,8 +2190,16 @@ namespace HciProject2
 
                     }
                 }
+            Console.WriteLine("cccccccccccc: " + classroomsShow.Count);
+            if (mode.SelectedIndex>-1 && currMode.Equals("one day") && day.SelectedIndex>-1)
+            {
                 ucitajZaDan();
             }
+            else if(mode.SelectedIndex>-1 && currMode.Equals("whole week") )
+            {
+                ucitaj();
+            }
+            //}
         }
 
         private void saveSub()

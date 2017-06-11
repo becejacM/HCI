@@ -322,6 +322,96 @@ namespace HciProject2.Dialogs
                     int sIndex = dgrMain.SelectedIndex;
                     subjectsShow[dgrMain.SelectedIndex].Copy(subject);
                     Console.WriteLine("index: " + dgrMain.SelectedIndex + "  " + subjectsShow[dgrMain.SelectedIndex].Id);
+
+                    Subject currSubject = subjectsShow[dgrMain.SelectedIndex];
+
+                    bool b = false;
+                    foreach (Classroom c in MainWindow.classrooms)
+                    {
+                        for (int i = c.Termini.Count - 1; i > -1; i--)
+                    {
+                        Console.WriteLine(i);
+                        
+                            if (currSubject.Naziv.Equals(c.Termini[i].Predmet))
+                            {
+                                if (!c.PrisustvoProjektora && currSubject.PrisustvoProjektora)
+                                {
+                                    b = true;
+                                    break;
+
+                                }
+                                if (!c.PrisustvoTable && currSubject.PrisustvoTable)
+                                {
+                                    b = true;
+                                    break;
+                                }
+                                if (!c.PrisustvoPametneTable && currSubject.PrisustvoPametneTable)
+                                {
+                                    b = true;
+                                    break;
+
+                                }
+                                if (!c.Os.Equals(currSubject.Os))
+                                {
+                                    b = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (b)
+                    {
+                        if (MessageBox.Show("This will remove appointments on schedule, delete anyway?", "Delete classroom", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        {
+                            //do no stuff
+                            return;
+                        }
+                        else
+                        {
+                            //do yes stuff
+                            foreach (Classroom c in MainWindow.classrooms)
+                            {
+                                for (int i = c.Termini.Count - 1; i > -1; i--)
+                            {
+                                Console.WriteLine(i);
+                                
+                                    if (currSubject.Naziv.Equals(c.Termini[i].Predmet))
+                                    {
+                                        if (!c.PrisustvoProjektora && currSubject.PrisustvoProjektora)
+                                        {
+                                            Console.WriteLine("Subject has projector, but classroom don't!");
+                                            c.Termini.RemoveAt(i);
+                                            break;
+
+                                        }
+                                        if (!c.PrisustvoTable && currSubject.PrisustvoTable)
+                                        {
+                                            Console.WriteLine("Subject has table, but classroom don't!");
+                                            c.Termini.RemoveAt(i);
+                                            break;
+
+
+                                        }
+                                        if (!c.PrisustvoPametneTable && currSubject.PrisustvoPametneTable)
+                                        {
+                                            Console.WriteLine("Subject has smart table, but classroom don't!");
+                                            c.Termini.RemoveAt(i);
+                                            break;
+
+                                        }
+                                        if (!c.Os.Equals(currSubject.Os))
+                                        {
+                                            Console.WriteLine("Subject has " + currSubject.Os + " but classroom has " + c.Os);
+
+                                            c.Termini.RemoveAt(i);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    saveClass();
                     dgrMain.SelectedIndex = sIndex;
                 }
 
@@ -667,6 +757,22 @@ namespace HciProject2.Dialogs
         {
             MainWindow m = new MainWindow();
             m.Show();
+        }
+
+        private void saveClass()
+        {
+            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
+
+            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml"))
+            {
+                List<Classroom> list = new List<Classroom>();
+                foreach (Classroom c in MainWindow.classrooms)
+                {
+                    list.Add(c);
+                }
+                serializer.Serialize(stream, list);
+            }
         }
     }
 }

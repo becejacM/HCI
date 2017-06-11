@@ -108,7 +108,11 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Grid.Row="0" Header="All Softwares" BorderBrush="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Header="All Softwares" BorderBrush="Black">
                         <ListView Name="allSofts" ToolTip="Drag and drop to the other board" ItemsSource="{Binding MainWindow.softwares}"
                               PreviewMouseLeftButtonDown="lvAllS_PreviewMouseLeftButtonDown"
                               MouseMove="lvAllS_MouseMove" AllowDrop="True" >
@@ -122,9 +126,9 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </GroupBox>
+                    <Button x:Name="clear" Grid.Column="1" Grid.Row="0" Content="Clear" ToolTip="Clear selected item" Click="clear_Click"/>
+                    <GroupBox Grid.Column="1" Grid.Row="1" Header="Software" BorderBrush="Black">
 
-                    <GroupBox Grid.Column="1" Grid.Row="0" Header="Software" BorderBrush="Black">
-                        
                         <ListView x:Name="DropList" ToolTip="Drag and drop to the other board" ItemsSource="{Binding softwares}"
                               PreviewMouseLeftButtonDown="lvAllS_PreviewMouseLeftButtonDown"
                               MouseMove="lvAllS_MouseMove" AllowDrop="True" DragEnter="DropList_DragEnter"

@@ -47,7 +47,7 @@ namespace HciProject2.Dialogs
 
             os.Items.Add("Linux");
             os.Items.Add("Windows");
-            os.Items.Add("Cross-platform");
+            os.Items.Add("Both");
 
             software = new Software();
             Id.DataContext = software;
@@ -129,7 +129,168 @@ namespace HciProject2.Dialogs
         {
             if (dgrMain.SelectedIndex != -1)
             {
-                softwareShow.RemoveAt(dgrMain.SelectedIndex);
+                bool b = false;
+                foreach (Subject c in MainWindow.subjects)
+                {
+                    if (c.Softver.Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                    {
+                        b = true;
+                    }
+                }
+                if (b)
+                {
+                    if (MessageBox.Show("This will delete subjects with this software. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //do no stuff
+                        return;
+                    }
+                    else
+                    {
+                        //do yes stuff
+                        for (int i = MainWindow.subjects.Count - 1; i > -1; i--)
+                        {
+                            if (MainWindow.subjects[i].Softver.Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                            {
+                                MainWindow.subjects.RemoveAt(i);
+                            }
+                        }
+                        bool bb2 = false;
+                        foreach(Classroom c in MainWindow.classrooms)
+                        {
+                            foreach(Software s in c.Softver)
+                            {
+                                if (s.Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                                {
+                                    bb2 = true;
+                                }
+                            }
+
+                            if (bb2)
+                            {
+                                if (c.Softver.Count == 1)
+                                {
+                                    MessageBox.Show("You can't delete this software. He is the only one in classroom " + c.Id);
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (bb2)
+                        {
+                            if (MessageBox.Show("This will delete software from list in classrooms. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                            {
+                                //do no stuff
+                                return;
+                            }
+                            else
+                            {
+                                foreach(Classroom c in MainWindow.classrooms)
+                                {
+                                    for (int i = c.Softver.Count - 1; i > -1; i--)
+                                    {
+                                        if (c.Softver[i].Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                                        {
+                                            c.Softver.RemoveAt(i);
+                                        }
+                                    }
+                                }
+                                softwareShow.RemoveAt(dgrMain.SelectedIndex);
+                                /*foreach (Classroom c in MainWindow.classrooms)
+                                {
+                                    for (int i = c.Termini.Count - 1; i > -1; i--)
+                                    {
+                                        foreach (Subject sub in MainWindow.subjects)
+                                        {
+                                            if (sub.Naziv.Equals(c.Termini[i].Predmet))
+                                            {
+                                                foreach(Software ss in c.Softver)
+                                                {
+                                                    if (ss.Id.Equals(sub.Softver))
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }*/
+                                }
+                            }
+
+                            saveSub();
+                        saveClass();
+                    }
+                }
+
+                bool bb = false;
+                foreach (Classroom c in MainWindow.classrooms)
+                {
+                    foreach (Software s in c.Softver)
+                    {
+                        if (s.Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                        {
+                            bb = true;
+                        }
+                    }
+
+                    if (bb)
+                    {
+                        if (c.Softver.Count == 1)
+                        {
+                            MessageBox.Show("You can't delete this software. He is the only one in classroom " + c.Id);
+                            return;
+                        }
+                    }
+                }
+
+                if (bb)
+                {
+                    if (MessageBox.Show("This will delete software from list in classrooms. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //do no stuff
+                        return;
+                    }
+                    else
+                    {
+                        foreach (Classroom c in MainWindow.classrooms)
+                        {
+                            for (int i = c.Softver.Count - 1; i > -1; i--)
+                            {
+                                if (c.Softver[i].Id.Equals(softwareShow[dgrMain.SelectedIndex].Id))
+                                {
+                                    c.Softver.RemoveAt(i);
+                                    String s = "";
+                                    foreach (Software sp in c.Softver)
+                                    {
+                                        s += sp.Naziv + " ";
+                                        Console.WriteLine("ddd " + s);
+                                    }
+                                    c.ImenaSoftvera = s;
+                                }
+                            }
+                        }
+                        softwareShow.RemoveAt(dgrMain.SelectedIndex);
+                        /*foreach (Classroom c in MainWindow.classrooms)
+                        {
+                            for (int i = c.Termini.Count - 1; i > -1; i--)
+                            {
+                                foreach (Subject sub in MainWindow.subjects)
+                                {
+                                    if (sub.Naziv.Equals(c.Termini[i].Predmet))
+                                    {
+                                        foreach(Software ss in c.Softver)
+                                        {
+                                            if (ss.Id.Equals(sub.Softver))
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }*/
+                    }
+                }
+                saveSub();
+                saveClass();
 
             }
             save();
@@ -235,6 +396,36 @@ namespace HciProject2.Dialogs
             m.Show();
         }
 
+        private void saveSub()
+        {
+            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml", "");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Subject>));
+
+            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml"))
+            {
+                List<Subject> list = new List<Subject>();
+                foreach (Subject c in MainWindow.subjects)
+                {
+                    list.Add(c);
+                }
+                serializer.Serialize(stream, list);
+            }
+        }
+        private void saveClass()
+        {
+            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
+
+            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml"))
+            {
+                List<Classroom> list = new List<Classroom>();
+                foreach (Classroom c in MainWindow.classrooms)
+                {
+                    list.Add(c);
+                }
+                serializer.Serialize(stream, list);
+            }
+        }
         private void osistem_SelectionChanged(object sender, RoutedEventArgs e)
         {
             if (dgrMain.SelectedIndex != -1 && izmena == -1)
