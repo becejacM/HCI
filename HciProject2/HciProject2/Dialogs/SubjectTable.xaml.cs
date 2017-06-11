@@ -28,6 +28,8 @@ namespace HciProject2.Dialogs
         private ObservableCollection<Software> softwares;
         private ObservableCollection<Course> courses;
         public static ObservableCollection<Subject> subjectsShow { get; set; }
+        public static ObservableCollection<Software> softwareShow { get; set; }
+
         Boolean addNew;
         String currId;
 
@@ -54,10 +56,15 @@ namespace HciProject2.Dialogs
             osistem.Items.Add("Linux");
             osistem.Items.Add("Both");
 
+            o.Items.Add("Windows");
+            o.Items.Add("Linux");
+            o.Items.Add("Cross platform");
+
             subject = new Subject();
             softwares = new ObservableCollection<Software>();
             courses = new ObservableCollection<Course>();
             subjectsShow = new ObservableCollection<Subject>();
+            softwareShow = new ObservableCollection<Software>();
 
             id.DataContext = subject;
             naziv.DataContext = subject;
@@ -74,8 +81,12 @@ namespace HciProject2.Dialogs
             {
                 subjectsShow.Add(s);
             }
+            foreach (Software s in MainWindow.softwares)
+            {
+                softwareShow.Add(s);
+            }
             dgrMain.ItemsSource = subjectsShow;
-            allSofts.ItemsSource = MainWindow.softwares;
+            allSofts.ItemsSource = softwareShow;
             allCourses.ItemsSource = MainWindow.courses;
 
             DropList.ItemsSource = softwares;
@@ -110,6 +121,15 @@ namespace HciProject2.Dialogs
                 softwares.Add(subjectsShow[dgrMain.SelectedIndex].Softver);
                 courses.Clear();
                 courses.Add(subjectsShow[dgrMain.SelectedIndex].Smer);
+
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (!softwares.Contains(ss))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
             }
 
             else
@@ -130,6 +150,15 @@ namespace HciProject2.Dialogs
                 os.SelectedValue = "Windows";
                 subject.Smer = new Course();
                 subject.Softver = new Software();
+
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (!softwares.Contains(ss))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
             }
 
         }
@@ -148,6 +177,7 @@ namespace HciProject2.Dialogs
             brTermina.IsEnabled = e;
             allSofts.IsEnabled = e;
             allCourses.IsEnabled = e;
+            o.IsEnabled = e;
             //Softver.IsEnabled = e;
         }
 
@@ -247,7 +277,7 @@ namespace HciProject2.Dialogs
                 softwares.Clear();
                 softwares.Add(s);
                 subject.Softver.Copy(s);
-
+                softwareShow.Remove(s);
 
             }
         }
@@ -773,6 +803,35 @@ namespace HciProject2.Dialogs
                 }
                 serializer.Serialize(stream, list);
             }
+        }
+
+        private void o_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (o.SelectedIndex > -1)
+            {
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (o.SelectedItem.Equals(ss.Os))
+                    {
+                        if(!softwares.Contains(ss)){
+                            softwareShow.Add(ss);
+                        }
+                    }
+                    if (o.SelectedItem.Equals("Cross platform") && ss.Os.Equals("Both"))
+                    {
+                        if (!softwares.Contains(ss))
+                        {
+                            softwareShow.Add(ss);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

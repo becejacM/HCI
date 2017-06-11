@@ -55,6 +55,10 @@ namespace HciProject2.Dialogs
             osistem.Items.Add("Linux");
             osistem.Items.Add("Both");
 
+            o.Items.Add("Windows");
+            o.Items.Add("Linux");
+            o.Items.Add("Cross platform");
+
             classroom = new Classroom();
             softwares = new ObservableCollection<Software>();
             classroomShow = new ObservableCollection<Classroom>();
@@ -72,9 +76,13 @@ namespace HciProject2.Dialogs
             {
                 classroomShow.Add(s);
             }
+            foreach (Software s in MainWindow.softwares)
+            {
+                softwareShow.Add(s);
+            }
             addNew = false;
             dgrMain.ItemsSource = classroomShow;
-            allSofts.ItemsSource = MainWindow.softwares;
+            allSofts.ItemsSource = softwareShow;
             DropList.ItemsSource = softwares;
             enableFields(false);
             dgrMain.UnselectAllCells();
@@ -103,7 +111,14 @@ namespace HciProject2.Dialogs
                 foreach(Software s in classroomShow[dgrMain.SelectedIndex].Softver)
                 {
                     softwares.Add(s);
-
+                }
+                softwareShow.Clear();
+                foreach(Software ss in MainWindow.softwares)
+                {
+                    if (!softwares.Contains(ss))
+                    {
+                        softwareShow.Add(ss);
+                    }
                 }
             }
 
@@ -122,6 +137,17 @@ namespace HciProject2.Dialogs
                 softwares.Clear();
                 os.SelectedValue = "Windows";
                 classroom.ImenaSoftvera = "";
+
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (!softwares.Contains(ss))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
+
+                
             }
 
         }
@@ -135,6 +161,7 @@ namespace HciProject2.Dialogs
             smartTable.IsEnabled = e;
             os.IsEnabled = e;
             allSofts.IsEnabled = e;
+            o.IsEnabled = e;
             //Softver.IsEnabled = e;
         }
 
@@ -200,7 +227,7 @@ namespace HciProject2.Dialogs
                 softwares.Add(s);
 
                 classroom.Softver.Add(s);
-                
+                softwareShow.Remove(s);
 
             }
         }
@@ -735,8 +762,143 @@ namespace HciProject2.Dialogs
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
+            foreach(Software s in softwares)
+            {
+                softwareShow.Add(s);
+            }
             softwares.Clear();
             classroom.Softver.Clear();
+        }
+
+        private void o_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (o.SelectedIndex > -1)
+            {
+                softwareShow.Clear();
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (o.SelectedItem.Equals(ss.Os))
+                    {
+                        if (!softwares.Contains(ss))
+                        {
+                            softwareShow.Add(ss);
+                        }
+                    }
+                    if(o.SelectedItem.Equals("Cross platform") && ss.Os.Equals("Both"))
+                    {
+                        if (!softwares.Contains(ss))
+                        {
+                            softwareShow.Add(ss);
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (search.Text.Equals(":All"))
+            {
+                classroomShow.Clear();
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    classroomShow.Add(ss);
+                }
+                return;
+            }
+
+            if (search.Text.Equals("") || !search.Text.StartsWith(":"))
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            //:Id c1 || :Description l
+            string[] lines = search.Text.Split(' ');
+            if (lines.Length != 2)
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            string prvi = lines[0].Substring(1);
+            string drugi = lines[1];
+            classroomShow.Clear();
+            if (prvi.Equals("Id"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.Id.Contains(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if(prvi.Equals("NumberOfWorkers"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.BrRadnihMesta==Int32.Parse(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Projector"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.PrisustvoProjektora.ToString().Equals(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Table"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.PrisustvoTable.ToString().Equals(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("SmartTable"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.PrisustvoPametneTable.ToString().Equals(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Os"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    if (ss.Os.Equals(drugi))
+                    {
+                        classroomShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Software"))
+            {
+                foreach (Classroom ss in MainWindow.classrooms)
+                {
+                    foreach(Software s in ss.Softver)
+                    {
+                        if (s.Naziv.Equals(drugi))
+                        {
+                            classroomShow.Add(ss);
+                            break;
+                        }
+                    }
+                    
+                }
+            }
+
         }
     }
 }

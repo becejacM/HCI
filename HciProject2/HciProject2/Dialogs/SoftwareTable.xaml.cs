@@ -730,5 +730,10 @@ namespace HciProject2.Dialogs
                 }
             }
         }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

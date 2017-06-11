@@ -13,6 +13,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -37,8 +38,22 @@
                       VerticalAlignment="Center">
             </ComboBox>
         </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">SEARCH:</Label>
+            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :Name name. :All for all subjects"  MaxLength="150" Grid.Column="1" Grid.Row="0" />
+            <Button x:Name="btnSearch" Grid.Column="3" Grid.Row="0" Content="Search" ToolTip="Click to search" Click="btnSearch_Click" Margin="10" Padding="20,5" />
+        </Grid>
         <DataGrid
-            Grid.Row="1" Grid.Column="0" ToolTip="Select item to modify/delete" x:Name="dgrMain" 
+            Grid.Row="2" Grid.Column="0" ToolTip="Select item to modify/delete" x:Name="dgrMain" 
             ItemsSource="{Binding subjectsShow}" IsReadOnly="True" SelectionChanged="dgrMain_SelectionChanged" 
             AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" >
             <DataGrid.Columns>
@@ -57,7 +72,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="2" Grid.Column="0">
+        <Grid Grid.Row="3" Grid.Column="0">
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -119,7 +134,14 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Grid.Row="0" Header="All Softwares" BorderBrush="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ComboBox Grid.Column="0" Grid.Row="0" x:Name="o"  SelectedItem="{Binding Path=o}" SelectionChanged="o_SelectionChanged"
+                      VerticalAlignment="Center">
+                    </ComboBox>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Header="All Softwares" BorderBrush="Black">
                         <ListView Name="allSofts" ToolTip="Drag and drop to the other board" ItemsSource="{Binding MainWindow.softwares}"
                               PreviewMouseLeftButtonDown="lvAllS_PreviewMouseLeftButtonDown"
                               MouseMove="lvAllS_MouseMove" AllowDrop="True">
@@ -134,7 +156,7 @@
                         </ListView>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="1" Grid.Row="0" Header="Software" BorderBrush="Black">
+                    <GroupBox Grid.Column="1" Grid.Row="1" Header="Software" BorderBrush="Black">
 
                         <ListView x:Name="DropList" ToolTip="Drag and drop to the other board" ItemsSource="{Binding softwares}"
                               PreviewMouseLeftButtonDown="lvAllS_PreviewMouseLeftButtonDown"

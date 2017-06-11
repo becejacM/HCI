@@ -333,5 +333,75 @@ namespace HciProject2.Dialogs
                 serializer.Serialize(stream, list);
             }
         }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (search.Text.Equals(":All"))
+            {
+                courseShow.Clear();
+                foreach (Course ss in MainWindow.courses)
+                {
+                    courseShow.Add(ss);
+                }
+                return;
+            }
+
+            if (search.Text.Equals("") || !search.Text.StartsWith(":"))
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            //:Id c1 || :Description l
+            string[] lines = search.Text.Split(' ');
+            if (lines.Length != 2)
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            string prvi = lines[0].Substring(1);
+            string drugi = lines[1];
+            courseShow.Clear();
+            if (prvi.Equals("Id"))
+            {
+                foreach (Course ss in MainWindow.courses)
+                {
+                    if (ss.Id.Contains(drugi))
+                    {
+                        courseShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Name"))
+            {
+                foreach (Course ss in MainWindow.courses)
+                {
+                    if (ss.Naziv.Contains(drugi))
+                    {
+                        courseShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Date"))
+            {
+                foreach (Course ss in MainWindow.courses)
+                {
+                    if (ss.Datum.ToString().Equals(drugi))
+                    {
+                        courseShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Description"))
+            {
+                foreach (Course ss in MainWindow.courses)
+                {
+                    if (ss.Opis.Contains(drugi))
+                    {
+                        courseShow.Add(ss);
+                    }
+                }
+            }
+            
+        }
     }
 }
