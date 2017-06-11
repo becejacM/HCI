@@ -27,6 +27,7 @@ namespace HciProject2.Dialogs
         private Classroom classroom;
         private ObservableCollection<Software> softwares;
         public static ObservableCollection<Classroom> classroomShow { get; set; }
+        public static ObservableCollection<Software> softwareShow { get; set; }
 
         Boolean addNew;
         String currId;
@@ -57,6 +58,7 @@ namespace HciProject2.Dialogs
             classroom = new Classroom();
             softwares = new ObservableCollection<Software>();
             classroomShow = new ObservableCollection<Classroom>();
+            softwareShow = new ObservableCollection<Software>();
 
             Id.DataContext = classroom;
             brRadnihMesta.DataContext = classroom;
@@ -227,6 +229,7 @@ namespace HciProject2.Dialogs
                     {
                         MessageBox.Show("ID allready exists. ID must be unique.");
                         hasError = true;
+                        return;
                     }
                 }
             }
@@ -234,23 +237,38 @@ namespace HciProject2.Dialogs
             {
                 MessageBox.Show("ID must be set.");
                 hasError = true;
+                return;
             }
             if (classroom.Opis.Equals("") || classroom.BrRadnihMesta.Equals("") || classroom.PrisustvoProjektora.Equals("") || classroom.PrisustvoTable.Equals("") ||
                 classroom.PrisustvoPametneTable.Equals("") || classroom.Os.Equals("") || classroom.Softver.Count==0)
             {
                 MessageBox.Show("One or more values doesn't set. All values must be set.");
                 hasError = true;
+                return;
             }
-            /*if (!classroom.Os.Equals(classroom.Softver.Os))
+            foreach(Software s in classroom.Softver)
             {
-                MessageBox.Show("Classroom has "+classroom.Os+" and Softver that you chose has "+classroom.Softver.Os+" This two values must be the same");
-                hasError = true;
-            }*/
+                Console.WriteLine(s.Naziv);
+                Console.WriteLine(classroom.Os);
+                if (!s.Os.Equals(classroom.Os))
+                {
+                    if (!classroom.Os.Equals("Both"))
+                    {
+                        softwares.Clear();
+                        classroom.Softver.Clear();
+                        MessageBox.Show("Classroom has " + classroom.Os + " and Softver that you chose has " + s.Os + " This two values must be the same");
+                        hasError = true;
+                        return;
+                    }
+                    
+                }
+            }
             if (classroom.BrRadnihMesta.GetType() != typeof(int))
             {
                 MessageBox.Show("Number of workers must be real number.");
                 hasError = true;
             }
+           
             if (!hasError)
             {
                 if (addNew)
@@ -261,7 +279,7 @@ namespace HciProject2.Dialogs
                     String s = "";
                     foreach (Software sp in classroom.Softver)
                     {
-                        s += sp.Naziv + ",";
+                        s += sp.Naziv + " ";
                         Console.WriteLine("ddd " + s);
                     }
                     c.ImenaSoftvera = s;
@@ -276,10 +294,96 @@ namespace HciProject2.Dialogs
                     String s = "";
                     foreach(Software sp in classroom.Softver)
                     {
-                        s += sp.Naziv + ",";
+                        s += sp.Naziv + " ";
                     }
                     classroom.ImenaSoftvera = s;
                     classroomShow[dgrMain.SelectedIndex].Copy(classroom);
+                    Classroom currClassroom = classroomShow[dgrMain.SelectedIndex];
+
+                    bool b = false;
+                    for (int i = currClassroom.Termini.Count - 1; i > -1; i--)
+                    {
+                        Console.WriteLine(i);
+                        foreach (Subject sub in MainWindow.subjects)
+                        {
+                            if (sub.Naziv.Equals(currClassroom.Termini[i].Predmet))
+                            {
+                                if (!currClassroom.PrisustvoProjektora && sub.PrisustvoProjektora)
+                                {
+                                    b = true;
+                                    break;
+
+                                }
+                                if (!currClassroom.PrisustvoTable && sub.PrisustvoTable)
+                                {
+                                    b = true;
+                                    break;
+                                }
+                                if (!currClassroom.PrisustvoPametneTable && sub.PrisustvoPametneTable)
+                                {
+                                    b = true;
+                                    break;
+
+                                }
+                                if (!currClassroom.Os.Equals(sub.Os))
+                                {
+                                    b = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (b)
+                    {
+                        if (MessageBox.Show("This will remove appointments on schedule, delete anyway?", "Delete classroom", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        {
+                            //do no stuff
+                            return;
+                        }
+                        else
+                        {
+                            //do yes stuff
+                            for (int i = currClassroom.Termini.Count - 1; i > -1; i--)
+                            {
+                                Console.WriteLine(i);
+                                foreach (Subject sub in MainWindow.subjects)
+                                {
+                                    if (sub.Naziv.Equals(currClassroom.Termini[i].Predmet))
+                                    {
+                                        if (!currClassroom.PrisustvoProjektora && sub.PrisustvoProjektora)
+                                        {
+                                            Console.WriteLine("Subject has projector, but classroom don't!");
+                                            currClassroom.Termini.RemoveAt(i);
+                                            break;
+
+                                        }
+                                        if (!currClassroom.PrisustvoTable && sub.PrisustvoTable)
+                                        {
+                                            Console.WriteLine("Subject has table, but classroom don't!");
+                                            currClassroom.Termini.RemoveAt(i);
+                                            break;
+
+
+                                        }
+                                        if (!currClassroom.PrisustvoPametneTable && sub.PrisustvoPametneTable)
+                                        {
+                                            Console.WriteLine("Subject has smart table, but classroom don't!");
+                                            currClassroom.Termini.RemoveAt(i);
+                                            break;
+
+                                        }
+                                        if (!currClassroom.Os.Equals(sub.Os))
+                                        {
+                                            Console.WriteLine("Subject has " + sub.Os + " but classroom has " + currClassroom.Os);
+
+                                            currClassroom.Termini.RemoveAt(i);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     dgrMain.SelectedIndex = sIndex;
                 }
 
@@ -627,6 +731,12 @@ namespace HciProject2.Dialogs
 
                 }
             }
+        }
+
+        private void clear_Click(object sender, RoutedEventArgs e)
+        {
+            softwares.Clear();
+            classroom.Softver.Clear();
         }
     }
 }

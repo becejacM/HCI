@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <ArrayOfSubject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Subject>
-    <id>hci</id>
-    <naziv>m</naziv>
+    <id>idsub1</id>
+    <naziv>hci</naziv>
     <smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
+      <id>kurs1</id>
+      <naziv>kurs1</naziv>
+      <datum>6/11/2017 12:52:57 AM</datum>
+      <opis>lep</opis>
+      <Id>kurs1</Id>
+      <Naziv>kurs1</Naziv>
+      <Datum>6/11/2017 12:52:57 AM</Datum>
+      <Opis>lep</Opis>
     </smer>
-    <opis>m</opis>
-    <velicinaGrupe>0</velicinaGrupe>
+    <opis>lep</opis>
+    <velicinaGrupe>2</velicinaGrupe>
     <minDuzinaTermina>2</minDuzinaTermina>
     <brTermina>20</brTermina>
     <prisustvoProjektora>true</prisustvoProjektora>
@@ -39,20 +39,20 @@
       <Cena>200</Cena>
       <Opis>lep</Opis>
     </softver>
-    <Id>hci</Id>
-    <Naziv>m</Naziv>
+    <Id>idsub1</Id>
+    <Naziv>hci</Naziv>
     <Smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
+      <id>kurs1</id>
+      <naziv>kurs1</naziv>
+      <datum>6/11/2017 12:52:57 AM</datum>
+      <opis>lep</opis>
+      <Id>kurs1</Id>
+      <Naziv>kurs1</Naziv>
+      <Datum>6/11/2017 12:52:57 AM</Datum>
+      <Opis>lep</Opis>
     </Smer>
-    <Opis>m</Opis>
-    <VelicinaGrupe>0</VelicinaGrupe>
+    <Opis>lep</Opis>
+    <VelicinaGrupe>2</VelicinaGrupe>
     <MinDuzinaTermina>2</MinDuzinaTermina>
     <BrTermina>20</BrTermina>
     <PrisustvoProjektora>true</PrisustvoProjektora>
@@ -80,23 +80,23 @@
   </Subject>
   <Subject>
     <id>mrs</id>
-    <naziv>m</naziv>
+    <naziv>mrs</naziv>
     <smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
+      <id>kurs2</id>
+      <naziv>kurs2</naziv>
+      <datum>6/11/2017 12:53:09 AM</datum>
+      <opis>lep</opis>
+      <Id>kurs2</Id>
+      <Naziv>kurs2</Naziv>
+      <Datum>6/11/2017 12:53:09 AM</Datum>
+      <Opis>lep</Opis>
     </smer>
-    <opis>mmm</opis>
+    <opis>lep</opis>
     <velicinaGrupe>0</velicinaGrupe>
-    <minDuzinaTermina>2</minDuzinaTermina>
-    <brTermina>21</brTermina>
+    <minDuzinaTermina>1</minDuzinaTermina>
+    <brTermina>19</brTermina>
     <prisustvoProjektora>false</prisustvoProjektora>
-    <prisustvoTable>false</prisustvoTable>
+    <prisustvoTable>true</prisustvoTable>
     <prisustvoPametneTable>false</prisustvoPametneTable>
     <os>Linux</os>
     <softver>
@@ -118,23 +118,23 @@
       <Opis>lep</Opis>
     </softver>
     <Id>mrs</Id>
-    <Naziv>m</Naziv>
+    <Naziv>mrs</Naziv>
     <Smer>
-      <id>k</id>
-      <naziv>k</naziv>
-      <datum>6/11/2017 1:42:42 AM</datum>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
-      <Datum>6/11/2017 1:42:42 AM</Datum>
-      <Opis>k</Opis>
+      <id>kurs2</id>
+      <naziv>kurs2</naziv>
+      <datum>6/11/2017 12:53:09 AM</datum>
+      <opis>lep</opis>
+      <Id>kurs2</Id>
+      <Naziv>kurs2</Naziv>
+      <Datum>6/11/2017 12:53:09 AM</Datum>
+      <Opis>lep</Opis>
     </Smer>
-    <Opis>mmm</Opis>
+    <Opis>lep</Opis>
     <VelicinaGrupe>0</VelicinaGrupe>
-    <MinDuzinaTermina>2</MinDuzinaTermina>
-    <BrTermina>21</BrTermina>
+    <MinDuzinaTermina>1</MinDuzinaTermina>
+    <BrTermina>19</BrTermina>
     <PrisustvoProjektora>false</PrisustvoProjektora>
-    <PrisustvoTable>false</PrisustvoTable>
+    <PrisustvoTable>true</PrisustvoTable>
     <PrisustvoPametneTable>false</PrisustvoPametneTable>
     <Os>Linux</Os>
     <Softver>

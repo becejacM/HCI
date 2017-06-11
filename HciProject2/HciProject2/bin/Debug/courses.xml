@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ArrayOfCourse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Course>
+    <id>kurs1</id>
+    <naziv>kurs1</naziv>
+    <datum>6/11/2017 12:52:57 AM</datum>
+    <opis>lep</opis>
+    <Id>kurs1</Id>
+    <Naziv>kurs1</Naziv>
+    <Datum>6/11/2017 12:52:57 AM</Datum>
+    <Opis>lep</Opis>
+  </Course>
+  <Course>
+    <id>kurs2</id>
+    <naziv>kurs2</naziv>
+    <datum>6/11/2017 12:53:09 AM</datum>
+    <opis>lep</opis>
+    <Id>kurs2</Id>
+    <Naziv>kurs2</Naziv>
+    <Datum>6/11/2017 12:53:09 AM</Datum>
+    <Opis>lep</Opis>
+  </Course>
+  <Course>
+    <id>kurs3</id>
+    <naziv>kurs3</naziv>
+    <datum>6/11/2017 12:53:22 AM</datum>
+    <opis>lep</opis>
+    <Id>kurs3</Id>
+    <Naziv>kurs3</Naziv>
+    <Datum>6/11/2017 12:53:22 AM</Datum>
+    <Opis>lep</Opis>
+  </Course>
+</ArrayOfCourse>
