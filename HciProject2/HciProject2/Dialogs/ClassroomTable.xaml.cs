@@ -422,12 +422,14 @@ namespace HciProject2.Dialogs
             }
         }
 
-        internal static void save()
+        private void save()
         {
             MainWindow.classrooms.Clear();
+            MainWindow.classroomsShow.Clear();
             foreach (Classroom s in classroomShow)
             {
                 MainWindow.classrooms.Add(s);
+                MainWindow.classroomsShow.Add(s);
             }
             File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
 
@@ -443,9 +445,50 @@ namespace HciProject2.Dialogs
                 }
                 serializer.Serialize(stream, list);
             }
-            
+
+            saveFile();
         }
 
+        private void saveFile()
+        {
+            if (!MainWindow.fileName.Name.Equals(""))
+            {
+                File.WriteAllText(MainWindow.fileName.Name, "");
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Shema>));
+
+                using (FileStream stream = File.OpenWrite(MainWindow.fileName.Name))
+                {
+                    List<Shema> list = new List<Shema>();
+                    List<Classroom> c = new List<Classroom>();
+                    foreach (Classroom c1 in MainWindow.classrooms)
+                    {
+                        c.Add(c1);
+                    }
+                    List<Subject> s = new List<Subject>();
+                    foreach (Subject s1 in MainWindow.subjects)
+                    {
+                        s.Add(s1);
+
+                    }
+                    List<Software> ss = new List<Software>();
+                    foreach (Software ss1 in MainWindow.softwares)
+                    {
+                        ss.Add(ss1);
+                    }
+                    List<Course> cc = new List<Course>();
+                    foreach (Course cc1 in MainWindow.courses)
+                    {
+                        cc.Add(cc1);
+                    }
+                    Shema shema = new Shema(c, s, ss, cc);
+                    list.Add(shema);
+                    serializer.Serialize(stream, list);
+                }
+            }
+
+
+        }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             addNew = true;
@@ -456,8 +499,8 @@ namespace HciProject2.Dialogs
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow m = new MainWindow();
-            m.Show();
+            /*MainWindow m = new MainWindow();
+            m.Show();*/
         }
         
         private void os_SelectionChanged(object sender, RoutedEventArgs e)

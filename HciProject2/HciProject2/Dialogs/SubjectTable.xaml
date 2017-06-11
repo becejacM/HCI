@@ -68,7 +68,7 @@
                 <DataGridTextColumn Header="Table" Binding="{Binding PrisustvoTable}"/>
                 <DataGridTextColumn Header="Smart table" Binding="{Binding PrisustvoPametneTable}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Os" Binding="{Binding Os}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Softver" Binding="{Binding Softver.Naziv}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Software" Binding="{Binding Softver.Naziv}"></DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -166,7 +166,7 @@
                                 <DataTemplate>
                                     <WrapPanel>
                                         <Canvas Height="25" Width="25" Background="{Binding Color}" />
-                                        <TextBlock Text="{Binding Id}" />
+                                        <TextBlock Text="{Binding Naziv}" />
                                     </WrapPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -205,7 +205,7 @@
                                 <DataTemplate>
                                     <WrapPanel>
                                         <Canvas Height="25" Width="25" Background="{Binding Color}" />
-                                        <TextBlock Text="{Binding Id}" />
+                                        <TextBlock Text="{Binding Naziv}" />
                                     </WrapPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

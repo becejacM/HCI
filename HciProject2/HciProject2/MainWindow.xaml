@@ -17,6 +17,13 @@
                     <!-- Prikazujemo preko Dock Panela koji preuzme sav prostor -->
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="MenuItem_Click_3">
+                </MenuItem>
+                <MenuItem Header="_Open" Click="MenuItem_Click_2">
+                </MenuItem>
+
+            </MenuItem>
             <MenuItem Header="_Classroom" Click="MenuItem_Click_1">
 
             </MenuItem>
@@ -26,6 +33,7 @@
             </MenuItem>
             <MenuItem Header="_Software" Click="MenuItem_Click_9">
             </MenuItem>
+            
 
         </Menu>
 

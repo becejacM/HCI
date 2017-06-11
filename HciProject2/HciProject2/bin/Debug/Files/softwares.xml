@@ -1,39 +1,21 @@
 <?xml version="1.0"?>
 <ArrayOfSoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Software>
-    <id>idsoft1</id>
-    <naziv>eclipse</naziv>
+    <id>k</id>
+    <naziv>k</naziv>
     <os>Windows</os>
-    <proizvodjac>proiz1</proizvodjac>
-    <sajt>site1</sajt>
-    <godinaIzdavanja>2000</godinaIzdavanja>
-    <cena>200</cena>
-    <opis>lep</opis>
-    <Id>idsoft1</Id>
-    <Naziv>eclipse</Naziv>
+    <proizvodjac>k</proizvodjac>
+    <sajt>k</sajt>
+    <godinaIzdavanja>k</godinaIzdavanja>
+    <cena>0</cena>
+    <opis>k</opis>
+    <Id>k</Id>
+    <Naziv>k</Naziv>
     <Os>Windows</Os>
-    <Proizvodjac>proiz1</Proizvodjac>
-    <Sajt>site1</Sajt>
-    <GodinaIzdavanja>2000</GodinaIzdavanja>
-    <Cena>200</Cena>
-    <Opis>lep</Opis>
-  </Software>
-  <Software>
-    <id>idsoft2</id>
-    <naziv>vs</naziv>
-    <os>Linux</os>
-    <proizvodjac>proiz2</proizvodjac>
-    <sajt>site2</sajt>
-    <godinaIzdavanja>2000</godinaIzdavanja>
-    <cena>2000</cena>
-    <opis>lep</opis>
-    <Id>idsoft2</Id>
-    <Naziv>vs</Naziv>
-    <Os>Linux</Os>
-    <Proizvodjac>proiz2</Proizvodjac>
-    <Sajt>site2</Sajt>
-    <GodinaIzdavanja>2000</GodinaIzdavanja>
-    <Cena>2000</Cena>
-    <Opis>lep</Opis>
+    <Proizvodjac>k</Proizvodjac>
+    <Sajt>k</Sajt>
+    <GodinaIzdavanja>k</GodinaIzdavanja>
+    <Cena>0</Cena>
+    <Opis>k</Opis>
   </Software>
 </ArrayOfSoftware>

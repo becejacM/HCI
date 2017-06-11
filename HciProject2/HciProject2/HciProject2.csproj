@@ -122,6 +122,8 @@
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\FileName.cs" />
+    <Compile Include="Model\Shema.cs" />
     <Compile Include="Model\Software.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
