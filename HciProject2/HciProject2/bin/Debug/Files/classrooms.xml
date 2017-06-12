@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <ArrayOfClassroom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Classroom>
-    <Id>c2</Id>
-    <Opis>kk</Opis>
-    <ImenaSoftvera>k </ImenaSoftvera>
+    <Id>o</Id>
+    <Opis>o</Opis>
+    <ImenaSoftvera>j </ImenaSoftvera>
     <BrRadnihMesta>0</BrRadnihMesta>
     <PrisustvoProjektora>false</PrisustvoProjektora>
     <PrisustvoTable>false</PrisustvoTable>
@@ -11,30 +11,70 @@
     <Os>Windows</Os>
     <Softver>
       <Software>
-        <id>k</id>
-        <naziv>k</naziv>
+        <id>j</id>
+        <naziv>j</naziv>
         <os>Windows</os>
-        <proizvodjac>k</proizvodjac>
-        <sajt>k</sajt>
-        <godinaIzdavanja>k</godinaIzdavanja>
+        <proizvodjac>j</proizvodjac>
+        <sajt>j</sajt>
+        <godinaIzdavanja>j</godinaIzdavanja>
         <cena>0</cena>
-        <opis>k</opis>
-        <Id>k</Id>
-        <Naziv>k</Naziv>
+        <opis>j</opis>
+        <Id>j</Id>
+        <Naziv>j</Naziv>
         <Os>Windows</Os>
-        <Proizvodjac>k</Proizvodjac>
-        <Sajt>k</Sajt>
-        <GodinaIzdavanja>k</GodinaIzdavanja>
+        <Proizvodjac>j</Proizvodjac>
+        <Sajt>j</Sajt>
+        <GodinaIzdavanja>j</GodinaIzdavanja>
         <Cena>0</Cena>
-        <Opis>k</Opis>
+        <Opis>j</Opis>
+      </Software>
+    </Softver>
+    <Termini>
+      <Appointment>
+        <Id>o23491</Id>
+        <Kolona>6</Kolona>
+        <Red>15</Red>
+        <Velicina>1</Velicina>
+        <Predmet>h</Predmet>
+        <Status>ok</Status>
+      </Appointment>
+    </Termini>
+  </Classroom>
+  <Classroom>
+    <Id>kk</Id>
+    <Opis>kkkkkk</Opis>
+    <ImenaSoftvera>j </ImenaSoftvera>
+    <BrRadnihMesta>0</BrRadnihMesta>
+    <PrisustvoProjektora>false</PrisustvoProjektora>
+    <PrisustvoTable>false</PrisustvoTable>
+    <PrisustvoPametneTable>false</PrisustvoPametneTable>
+    <Os>Windows</Os>
+    <Softver>
+      <Software>
+        <id>j</id>
+        <naziv>j</naziv>
+        <os>Windows</os>
+        <proizvodjac>j</proizvodjac>
+        <sajt>j</sajt>
+        <godinaIzdavanja>j</godinaIzdavanja>
+        <cena>0</cena>
+        <opis>j</opis>
+        <Id>j</Id>
+        <Naziv>j</Naziv>
+        <Os>Windows</Os>
+        <Proizvodjac>j</Proizvodjac>
+        <Sajt>j</Sajt>
+        <GodinaIzdavanja>j</GodinaIzdavanja>
+        <Cena>0</Cena>
+        <Opis>j</Opis>
       </Software>
     </Softver>
     <Termini />
   </Classroom>
   <Classroom>
-    <Id>lll</Id>
-    <Opis>ll</Opis>
-    <ImenaSoftvera>k </ImenaSoftvera>
+    <Id>mmmm</Id>
+    <Opis>mmm</Opis>
+    <ImenaSoftvera>j </ImenaSoftvera>
     <BrRadnihMesta>0</BrRadnihMesta>
     <PrisustvoProjektora>false</PrisustvoProjektora>
     <PrisustvoTable>false</PrisustvoTable>
@@ -42,22 +82,22 @@
     <Os>Windows</Os>
     <Softver>
       <Software>
-        <id>k</id>
-        <naziv>k</naziv>
+        <id>j</id>
+        <naziv>j</naziv>
         <os>Windows</os>
-        <proizvodjac>k</proizvodjac>
-        <sajt>k</sajt>
-        <godinaIzdavanja>k</godinaIzdavanja>
+        <proizvodjac>j</proizvodjac>
+        <sajt>j</sajt>
+        <godinaIzdavanja>j</godinaIzdavanja>
         <cena>0</cena>
-        <opis>k</opis>
-        <Id>k</Id>
-        <Naziv>k</Naziv>
+        <opis>j</opis>
+        <Id>j</Id>
+        <Naziv>j</Naziv>
         <Os>Windows</Os>
-        <Proizvodjac>k</Proizvodjac>
-        <Sajt>k</Sajt>
-        <GodinaIzdavanja>k</GodinaIzdavanja>
+        <Proizvodjac>j</Proizvodjac>
+        <Sajt>j</Sajt>
+        <GodinaIzdavanja>j</GodinaIzdavanja>
         <Cena>0</Cena>
-        <Opis>k</Opis>
+        <Opis>j</Opis>
       </Software>
     </Softver>
     <Termini />

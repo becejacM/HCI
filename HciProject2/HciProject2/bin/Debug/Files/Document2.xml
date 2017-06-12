@@ -5,7 +5,7 @@
       <Classroom>
         <Id>o</Id>
         <Opis>o</Opis>
-        <ImenaSoftvera>l </ImenaSoftvera>
+        <ImenaSoftvera>j </ImenaSoftvera>
         <BrRadnihMesta>0</BrRadnihMesta>
         <PrisustvoProjektora>false</PrisustvoProjektora>
         <PrisustvoTable>false</PrisustvoTable>
@@ -13,30 +13,47 @@
         <Os>Windows</Os>
         <Softver>
           <Software>
-            <id>l</id>
-            <naziv>l</naziv>
+            <id>j</id>
+            <naziv>j</naziv>
             <os>Windows</os>
-            <proizvodjac>l</proizvodjac>
-            <sajt>l</sajt>
-            <godinaIzdavanja>l</godinaIzdavanja>
+            <proizvodjac>j</proizvodjac>
+            <sajt>j</sajt>
+            <godinaIzdavanja>j</godinaIzdavanja>
             <cena>0</cena>
-            <opis>l</opis>
-            <Id>l</Id>
-            <Naziv>l</Naziv>
+            <opis>j</opis>
+            <Id>j</Id>
+            <Naziv>j</Naziv>
             <Os>Windows</Os>
-            <Proizvodjac>l</Proizvodjac>
-            <Sajt>l</Sajt>
-            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Proizvodjac>j</Proizvodjac>
+            <Sajt>j</Sajt>
+            <GodinaIzdavanja>j</GodinaIzdavanja>
             <Cena>0</Cena>
-            <Opis>l</Opis>
+            <Opis>j</Opis>
           </Software>
         </Softver>
-        <Termini />
+        <Termini>
+          <Appointment>
+            <Id>o23491</Id>
+            <Kolona>6</Kolona>
+            <Red>15</Red>
+            <Velicina>1</Velicina>
+            <Predmet>h</Predmet>
+            <Status>ok</Status>
+          </Appointment>
+          <Appointment>
+            <Id>o292278</Id>
+            <Kolona>6</Kolona>
+            <Red>8</Red>
+            <Velicina>1</Velicina>
+            <Predmet>h</Predmet>
+            <Status>ok</Status>
+          </Appointment>
+        </Termini>
       </Classroom>
       <Classroom>
         <Id>kk</Id>
         <Opis>kkkkkk</Opis>
-        <ImenaSoftvera>l </ImenaSoftvera>
+        <ImenaSoftvera>j </ImenaSoftvera>
         <BrRadnihMesta>0</BrRadnihMesta>
         <PrisustvoProjektora>false</PrisustvoProjektora>
         <PrisustvoTable>false</PrisustvoTable>
@@ -44,30 +61,39 @@
         <Os>Windows</Os>
         <Softver>
           <Software>
-            <id>l</id>
-            <naziv>l</naziv>
+            <id>j</id>
+            <naziv>j</naziv>
             <os>Windows</os>
-            <proizvodjac>l</proizvodjac>
-            <sajt>l</sajt>
-            <godinaIzdavanja>l</godinaIzdavanja>
+            <proizvodjac>j</proizvodjac>
+            <sajt>j</sajt>
+            <godinaIzdavanja>j</godinaIzdavanja>
             <cena>0</cena>
-            <opis>l</opis>
-            <Id>l</Id>
-            <Naziv>l</Naziv>
+            <opis>j</opis>
+            <Id>j</Id>
+            <Naziv>j</Naziv>
             <Os>Windows</Os>
-            <Proizvodjac>l</Proizvodjac>
-            <Sajt>l</Sajt>
-            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Proizvodjac>j</Proizvodjac>
+            <Sajt>j</Sajt>
+            <GodinaIzdavanja>j</GodinaIzdavanja>
             <Cena>0</Cena>
-            <Opis>l</Opis>
+            <Opis>j</Opis>
           </Software>
         </Softver>
-        <Termini />
+        <Termini>
+          <Appointment>
+            <Id>kk333669</Id>
+            <Kolona>6</Kolona>
+            <Red>8</Red>
+            <Velicina>1</Velicina>
+            <Predmet>h</Predmet>
+            <Status>no</Status>
+          </Appointment>
+        </Termini>
       </Classroom>
       <Classroom>
         <Id>mmmm</Id>
         <Opis>mmm</Opis>
-        <ImenaSoftvera>l </ImenaSoftvera>
+        <ImenaSoftvera>j </ImenaSoftvera>
         <BrRadnihMesta>0</BrRadnihMesta>
         <PrisustvoProjektora>false</PrisustvoProjektora>
         <PrisustvoTable>false</PrisustvoTable>
@@ -75,48 +101,147 @@
         <Os>Windows</Os>
         <Softver>
           <Software>
-            <id>l</id>
-            <naziv>l</naziv>
+            <id>j</id>
+            <naziv>j</naziv>
             <os>Windows</os>
-            <proizvodjac>l</proizvodjac>
-            <sajt>l</sajt>
-            <godinaIzdavanja>l</godinaIzdavanja>
+            <proizvodjac>j</proizvodjac>
+            <sajt>j</sajt>
+            <godinaIzdavanja>j</godinaIzdavanja>
             <cena>0</cena>
-            <opis>l</opis>
-            <Id>l</Id>
-            <Naziv>l</Naziv>
+            <opis>j</opis>
+            <Id>j</Id>
+            <Naziv>j</Naziv>
             <Os>Windows</Os>
-            <Proizvodjac>l</Proizvodjac>
-            <Sajt>l</Sajt>
-            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Proizvodjac>j</Proizvodjac>
+            <Sajt>j</Sajt>
+            <GodinaIzdavanja>j</GodinaIzdavanja>
             <Cena>0</Cena>
-            <Opis>l</Opis>
+            <Opis>j</Opis>
           </Software>
         </Softver>
-        <Termini />
+        <Termini>
+          <Appointment>
+            <Id>mmmm33728</Id>
+            <Kolona>6</Kolona>
+            <Red>10</Red>
+            <Velicina>1</Velicina>
+            <Predmet>h</Predmet>
+            <Status>no</Status>
+          </Appointment>
+        </Termini>
       </Classroom>
     </Classrooms>
-    <Subjects />
+    <Subjects>
+      <Subject>
+        <id>h</id>
+        <naziv>h</naziv>
+        <smer>
+          <id>i</id>
+          <naziv>i</naziv>
+          <datum>6/12/2017 2:47:08 AM</datum>
+          <opis>i</opis>
+          <Id>i</Id>
+          <Naziv>i</Naziv>
+          <Datum>6/12/2017 2:47:08 AM</Datum>
+          <Opis>i</Opis>
+        </smer>
+        <opis>h</opis>
+        <velicinaGrupe>0</velicinaGrupe>
+        <minDuzinaTermina>1</minDuzinaTermina>
+        <brTermina>18</brTermina>
+        <prisustvoProjektora>false</prisustvoProjektora>
+        <prisustvoTable>false</prisustvoTable>
+        <prisustvoPametneTable>false</prisustvoPametneTable>
+        <os>Both</os>
+        <softver>
+          <id>j</id>
+          <naziv>j</naziv>
+          <os>Windows</os>
+          <proizvodjac>j</proizvodjac>
+          <sajt>j</sajt>
+          <godinaIzdavanja>j</godinaIzdavanja>
+          <cena>0</cena>
+          <opis>j</opis>
+          <Id>j</Id>
+          <Naziv>j</Naziv>
+          <Os>Windows</Os>
+          <Proizvodjac>j</Proizvodjac>
+          <Sajt>j</Sajt>
+          <GodinaIzdavanja>j</GodinaIzdavanja>
+          <Cena>0</Cena>
+          <Opis>j</Opis>
+        </softver>
+        <Id>h</Id>
+        <Naziv>h</Naziv>
+        <Smer>
+          <id>i</id>
+          <naziv>i</naziv>
+          <datum>6/12/2017 2:47:08 AM</datum>
+          <opis>i</opis>
+          <Id>i</Id>
+          <Naziv>i</Naziv>
+          <Datum>6/12/2017 2:47:08 AM</Datum>
+          <Opis>i</Opis>
+        </Smer>
+        <Opis>h</Opis>
+        <VelicinaGrupe>0</VelicinaGrupe>
+        <MinDuzinaTermina>1</MinDuzinaTermina>
+        <BrTermina>18</BrTermina>
+        <PrisustvoProjektora>false</PrisustvoProjektora>
+        <PrisustvoTable>false</PrisustvoTable>
+        <PrisustvoPametneTable>false</PrisustvoPametneTable>
+        <Os>Both</Os>
+        <Softver>
+          <id>j</id>
+          <naziv>j</naziv>
+          <os>Windows</os>
+          <proizvodjac>j</proizvodjac>
+          <sajt>j</sajt>
+          <godinaIzdavanja>j</godinaIzdavanja>
+          <cena>0</cena>
+          <opis>j</opis>
+          <Id>j</Id>
+          <Naziv>j</Naziv>
+          <Os>Windows</Os>
+          <Proizvodjac>j</Proizvodjac>
+          <Sajt>j</Sajt>
+          <GodinaIzdavanja>j</GodinaIzdavanja>
+          <Cena>0</Cena>
+          <Opis>j</Opis>
+        </Softver>
+      </Subject>
+    </Subjects>
     <Softwares>
       <Software>
-        <id>l</id>
-        <naziv>lfff</naziv>
+        <id>j</id>
+        <naziv>j</naziv>
         <os>Windows</os>
-        <proizvodjac>l</proizvodjac>
-        <sajt>l</sajt>
-        <godinaIzdavanja>l</godinaIzdavanja>
+        <proizvodjac>j</proizvodjac>
+        <sajt>j</sajt>
+        <godinaIzdavanja>j</godinaIzdavanja>
         <cena>0</cena>
-        <opis>l</opis>
-        <Id>l</Id>
-        <Naziv>lfff</Naziv>
+        <opis>j</opis>
+        <Id>j</Id>
+        <Naziv>j</Naziv>
         <Os>Windows</Os>
-        <Proizvodjac>l</Proizvodjac>
-        <Sajt>l</Sajt>
-        <GodinaIzdavanja>l</GodinaIzdavanja>
+        <Proizvodjac>j</Proizvodjac>
+        <Sajt>j</Sajt>
+        <GodinaIzdavanja>j</GodinaIzdavanja>
         <Cena>0</Cena>
-        <Opis>l</Opis>
+        <Opis>j</Opis>
       </Software>
     </Softwares>
-    <Courses />
+    <Courses>
+      <Course>
+        <id>i</id>
+        <naziv>i</naziv>
+        <datum>6/12/2017 2:47:08 AM</datum>
+        <opis>i</opis>
+        <Id>i</Id>
+        <Naziv>i</Naziv>
+        <Datum>6/12/2017 2:47:08 AM</Datum>
+        <Opis>i</Opis>
+      </Course>
+    </Courses>
   </Shema>
 </ArrayOfShema>
