@@ -88,45 +88,13 @@
             <Predmet>h</Predmet>
             <Status>no</Status>
           </Appointment>
-        </Termini>
-      </Classroom>
-      <Classroom>
-        <Id>mmmm</Id>
-        <Opis>mmm</Opis>
-        <ImenaSoftvera>j </ImenaSoftvera>
-        <BrRadnihMesta>0</BrRadnihMesta>
-        <PrisustvoProjektora>false</PrisustvoProjektora>
-        <PrisustvoTable>false</PrisustvoTable>
-        <PrisustvoPametneTable>false</PrisustvoPametneTable>
-        <Os>Windows</Os>
-        <Softver>
-          <Software>
-            <id>j</id>
-            <naziv>j</naziv>
-            <os>Windows</os>
-            <proizvodjac>j</proizvodjac>
-            <sajt>j</sajt>
-            <godinaIzdavanja>j</godinaIzdavanja>
-            <cena>0</cena>
-            <opis>j</opis>
-            <Id>j</Id>
-            <Naziv>j</Naziv>
-            <Os>Windows</Os>
-            <Proizvodjac>j</Proizvodjac>
-            <Sajt>j</Sajt>
-            <GodinaIzdavanja>j</GodinaIzdavanja>
-            <Cena>0</Cena>
-            <Opis>j</Opis>
-          </Software>
-        </Softver>
-        <Termini>
           <Appointment>
-            <Id>mmmm33728</Id>
-            <Kolona>6</Kolona>
-            <Red>10</Red>
+            <Id>kk152860</Id>
+            <Kolona>1</Kolona>
+            <Red>8</Red>
             <Velicina>1</Velicina>
             <Predmet>h</Predmet>
-            <Status>no</Status>
+            <Status>ok</Status>
           </Appointment>
         </Termini>
       </Classroom>

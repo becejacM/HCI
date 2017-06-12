@@ -120,7 +120,7 @@ namespace HciProject2
             os.Items.Add("Both");
 
             
-            readFromFile();
+            //readFromFile();
             
 
         }
@@ -248,14 +248,26 @@ namespace HciProject2
             ucitaj();*/
 
             //ovo ne radiii
-            if (classroomsShow.Count > 0)
+            /*if (classroomsShow.Count > 0)
             {
-                mode.SelectedValue = "one day";
+                mode.SelectedIndex= "one day";
                 day.SelectedValue = "Monday";
                 HandleMode();
                 HandleDay();
+            }*/
+            mode.SelectedValue = "one day";
+            day.SelectedValue = "Monday";
+            HandleMode();
+            HandleDay();
+            if (currMode.Equals("one day"))
+            {
+                ucitajZaDan();
             }
-            
+            else
+            {
+                ucitaj();
+            }
+
         }
 
         public void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -1434,33 +1446,36 @@ namespace HciProject2
         }
         private void HandleDay()
         {
-            currDay = day.SelectedItem.ToString();
-            if (currDay.Equals("Monday"))
+            if (day.SelectedIndex > -1)
             {
-                currIndexOfDay = 1;
+                currDay = day.SelectedItem.ToString();
+                if (currDay.Equals("Monday"))
+                {
+                    currIndexOfDay = 1;
+                }
+                else if (currDay.Equals("Tuesday"))
+                {
+                    currIndexOfDay = 2;
+                }
+                else if (currDay.Equals("Wednesday"))
+                {
+                    currIndexOfDay = 3;
+                }
+                else if (currDay.Equals("Thursday"))
+                {
+                    currIndexOfDay = 4;
+                }
+                else if (currDay.Equals("Friday"))
+                {
+                    currIndexOfDay = 5;
+                }
+                else if (currDay.Equals("Saturday"))
+                {
+                    currIndexOfDay = 6;
+                }
+                ucitajZaDan();
             }
-            else if (currDay.Equals("Tuesday"))
-            {
-                currIndexOfDay = 2;
-            }
-            else if (currDay.Equals("Wednesday"))
-            {
-                currIndexOfDay = 3;
-            }
-            else if (currDay.Equals("Thursday"))
-            {
-                currIndexOfDay = 4;
-            }
-            else if (currDay.Equals("Friday"))
-            {
-                currIndexOfDay = 5;
-            }
-            else if (currDay.Equals("Saturday"))
-            {
-                currIndexOfDay = 6;
-            }
-            ucitajZaDan();
-
+            
         }
         private void mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1480,47 +1495,49 @@ namespace HciProject2
         }
         private void HandleMode()
         {
-            currMode = mode.SelectedItem.ToString();
-            Console.WriteLine("cccc " + currMode);
-            if(mode.SelectedItem.ToString().Equals("one day"))
+            if (mode.SelectedIndex > -1)
             {
-                day.Visibility = Visibility.Visible;
-                daylabel.Visibility = Visibility.Visible;
-                classroom.Visibility = Visibility.Collapsed;
-                classlabel.Visibility = Visibility.Collapsed;
-                if (day.SelectedIndex > -1)
+                currMode = mode.SelectedItem.ToString();
+                Console.WriteLine("cccc " + currMode);
+                if (mode.SelectedItem.ToString().Equals("one day"))
                 {
-                    ucitajZaDan();
-                    RoutedEventArgs r = new RoutedEventArgs();
-                    Object s = new object();
-                    CheckBox_Checked(s, r);
+                    day.Visibility = Visibility.Visible;
+                    daylabel.Visibility = Visibility.Visible;
+                    classroom.Visibility = Visibility.Collapsed;
+                    classlabel.Visibility = Visibility.Collapsed;
+                    if (day.SelectedIndex > -1)
+                    {
+                        ucitajZaDan();
+                        RoutedEventArgs r = new RoutedEventArgs();
+                        Object s = new object();
+                        CheckBox_Checked(s, r);
+                    }
+                    else
+                    {
+                        grid.Children.Clear();
+                        grid.ShowGridLines = false;
+                    }
                 }
                 else
                 {
-                    grid.Children.Clear();
-                    grid.ShowGridLines = false;
+                    classroom.Visibility = Visibility.Visible;
+                    classlabel.Visibility = Visibility.Visible;
+                    day.Visibility = Visibility.Collapsed;
+                    daylabel.Visibility = Visibility.Collapsed;
+                    if (classroom.SelectedIndex > -1)
+                    {
+                        ucitaj();
+                        RoutedEventArgs r = new RoutedEventArgs();
+                        Object s = new object();
+                        CheckBox_Checked(s, r);
+                    }
+                    else
+                    {
+                        grid.Children.Clear();
+                        grid.ShowGridLines = false;
+                    }
                 }
             }
-            else
-            {
-                classroom.Visibility = Visibility.Visible;
-                classlabel.Visibility = Visibility.Visible;
-                day.Visibility = Visibility.Collapsed;
-                daylabel.Visibility = Visibility.Collapsed;
-                if (classroom.SelectedIndex > -1)
-                {
-                    ucitaj();
-                    RoutedEventArgs r = new RoutedEventArgs();
-                    Object s = new object();
-                    CheckBox_Checked(s, r);
-                }
-                else
-                {
-                    grid.Children.Clear();
-                    grid.ShowGridLines = false;
-                }
-            }
-            
         }
 
         private void helpGrid_Drop(object sender, RoutedEventArgs e)
@@ -1649,7 +1666,7 @@ namespace HciProject2
                     {
                         ucitaj();
                     }
-                    File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
+                    /*File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
 
                     XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
 
@@ -1661,7 +1678,8 @@ namespace HciProject2
                             list.Add(c);
                         }
                         serializer.Serialize(stream, list);
-                    }
+                    }*/
+                    save();
                 }
             }
             dropFromHelpGrid=false;
@@ -1732,11 +1750,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1770,11 +1788,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1807,11 +1825,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1844,11 +1862,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1881,11 +1899,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1918,11 +1936,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1955,11 +1973,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -1990,11 +2008,11 @@ namespace HciProject2
                     {
                         if (!os.SelectedItem.Equals(""))
                         {
-                            if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                            if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                             {
                                 subjectsShow.Add(s);
                             }
-                            else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                            else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                             {
                                 subjectsShow.Add(s);
                             }
@@ -2032,11 +2050,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2070,11 +2088,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2107,11 +2125,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2144,11 +2162,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2181,11 +2199,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2218,11 +2236,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2255,11 +2273,11 @@ namespace HciProject2
                             {
                                 if (!os.SelectedItem.Equals(""))
                                 {
-                                    if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                    if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
-                                    else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                    else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                     {
                                         classroomsShow.Add(s);
                                     }
@@ -2290,11 +2308,11 @@ namespace HciProject2
                         {
                             if (!os.SelectedItem.Equals(""))
                             {
-                                if (os.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (os.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomsShow.Add(s);
                                 }
-                                else if (os.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (os.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomsShow.Add(s);
                                 }
@@ -2536,6 +2554,18 @@ namespace HciProject2
             }
             
             
+        }
+
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            grid.Children.Clear();
+            grid.RowDefinitions.Clear();
+            grid.ColumnDefinitions.Clear();
+            helpGrid.Children.Clear();
+            helpGrid.RowDefinitions.Clear();
+            helpGrid.ColumnDefinitions.Clear();
+            initialize();
+            readFromFile();
         }
     }
 }

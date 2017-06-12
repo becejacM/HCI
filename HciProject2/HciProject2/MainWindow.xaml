@@ -22,6 +22,8 @@
                 </MenuItem>
                 <MenuItem Header="_Open" Click="MenuItem_Click_2">
                 </MenuItem>
+                <MenuItem Header="_LoadLast" Click="MenuItem_Click_6">
+                </MenuItem>
 
             </MenuItem>
             <MenuItem Header="_Classroom" Click="MenuItem_Click_1">
@@ -53,6 +55,7 @@
                 </Grid>
 
             </ScrollViewer>
+            
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>

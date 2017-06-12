@@ -16,7 +16,7 @@
     <opis>h</opis>
     <velicinaGrupe>0</velicinaGrupe>
     <minDuzinaTermina>1</minDuzinaTermina>
-    <brTermina>18</brTermina>
+    <brTermina>15</brTermina>
     <prisustvoProjektora>false</prisustvoProjektora>
     <prisustvoTable>false</prisustvoTable>
     <prisustvoPametneTable>false</prisustvoPametneTable>
@@ -54,7 +54,7 @@
     <Opis>h</Opis>
     <VelicinaGrupe>0</VelicinaGrupe>
     <MinDuzinaTermina>1</MinDuzinaTermina>
-    <BrTermina>18</BrTermina>
+    <BrTermina>15</BrTermina>
     <PrisustvoProjektora>false</PrisustvoProjektora>
     <PrisustvoTable>false</PrisustvoTable>
     <PrisustvoPametneTable>false</PrisustvoPametneTable>
