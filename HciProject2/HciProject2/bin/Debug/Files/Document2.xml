@@ -1,9 +1,122 @@
 <?xml version="1.0"?>
 <ArrayOfShema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Shema>
-    <Classrooms />
+    <Classrooms>
+      <Classroom>
+        <Id>o</Id>
+        <Opis>o</Opis>
+        <ImenaSoftvera>l </ImenaSoftvera>
+        <BrRadnihMesta>0</BrRadnihMesta>
+        <PrisustvoProjektora>false</PrisustvoProjektora>
+        <PrisustvoTable>false</PrisustvoTable>
+        <PrisustvoPametneTable>false</PrisustvoPametneTable>
+        <Os>Windows</Os>
+        <Softver>
+          <Software>
+            <id>l</id>
+            <naziv>l</naziv>
+            <os>Windows</os>
+            <proizvodjac>l</proizvodjac>
+            <sajt>l</sajt>
+            <godinaIzdavanja>l</godinaIzdavanja>
+            <cena>0</cena>
+            <opis>l</opis>
+            <Id>l</Id>
+            <Naziv>l</Naziv>
+            <Os>Windows</Os>
+            <Proizvodjac>l</Proizvodjac>
+            <Sajt>l</Sajt>
+            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Cena>0</Cena>
+            <Opis>l</Opis>
+          </Software>
+        </Softver>
+        <Termini />
+      </Classroom>
+      <Classroom>
+        <Id>kk</Id>
+        <Opis>kkkkkk</Opis>
+        <ImenaSoftvera>l </ImenaSoftvera>
+        <BrRadnihMesta>0</BrRadnihMesta>
+        <PrisustvoProjektora>false</PrisustvoProjektora>
+        <PrisustvoTable>false</PrisustvoTable>
+        <PrisustvoPametneTable>false</PrisustvoPametneTable>
+        <Os>Windows</Os>
+        <Softver>
+          <Software>
+            <id>l</id>
+            <naziv>l</naziv>
+            <os>Windows</os>
+            <proizvodjac>l</proizvodjac>
+            <sajt>l</sajt>
+            <godinaIzdavanja>l</godinaIzdavanja>
+            <cena>0</cena>
+            <opis>l</opis>
+            <Id>l</Id>
+            <Naziv>l</Naziv>
+            <Os>Windows</Os>
+            <Proizvodjac>l</Proizvodjac>
+            <Sajt>l</Sajt>
+            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Cena>0</Cena>
+            <Opis>l</Opis>
+          </Software>
+        </Softver>
+        <Termini />
+      </Classroom>
+      <Classroom>
+        <Id>mmmm</Id>
+        <Opis>mmm</Opis>
+        <ImenaSoftvera>l </ImenaSoftvera>
+        <BrRadnihMesta>0</BrRadnihMesta>
+        <PrisustvoProjektora>false</PrisustvoProjektora>
+        <PrisustvoTable>false</PrisustvoTable>
+        <PrisustvoPametneTable>false</PrisustvoPametneTable>
+        <Os>Windows</Os>
+        <Softver>
+          <Software>
+            <id>l</id>
+            <naziv>l</naziv>
+            <os>Windows</os>
+            <proizvodjac>l</proizvodjac>
+            <sajt>l</sajt>
+            <godinaIzdavanja>l</godinaIzdavanja>
+            <cena>0</cena>
+            <opis>l</opis>
+            <Id>l</Id>
+            <Naziv>l</Naziv>
+            <Os>Windows</Os>
+            <Proizvodjac>l</Proizvodjac>
+            <Sajt>l</Sajt>
+            <GodinaIzdavanja>l</GodinaIzdavanja>
+            <Cena>0</Cena>
+            <Opis>l</Opis>
+          </Software>
+        </Softver>
+        <Termini />
+      </Classroom>
+    </Classrooms>
     <Subjects />
-    <Softwares />
+    <Softwares>
+      <Software>
+        <id>l</id>
+        <naziv>lfff</naziv>
+        <os>Windows</os>
+        <proizvodjac>l</proizvodjac>
+        <sajt>l</sajt>
+        <godinaIzdavanja>l</godinaIzdavanja>
+        <cena>0</cena>
+        <opis>l</opis>
+        <Id>l</Id>
+        <Naziv>lfff</Naziv>
+        <Os>Windows</Os>
+        <Proizvodjac>l</Proizvodjac>
+        <Sajt>l</Sajt>
+        <GodinaIzdavanja>l</GodinaIzdavanja>
+        <Cena>0</Cena>
+        <Opis>l</Opis>
+      </Software>
+    </Softwares>
     <Courses />
   </Shema>
 </ArrayOfShema>

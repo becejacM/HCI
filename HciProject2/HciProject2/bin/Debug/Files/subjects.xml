@@ -1,81 +1,81 @@
 <?xml version="1.0"?>
 <ArrayOfSubject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Subject>
-    <id>ooo</id>
-    <naziv>ooo</naziv>
+    <id>kkhh</id>
+    <naziv>kkhh</naziv>
     <smer>
-      <id>kurs</id>
-      <naziv>jjj</naziv>
-      <datum>6/11/2017 8:10:40 PM</datum>
-      <opis>jjj</opis>
-      <Id>kurs</Id>
-      <Naziv>jjj</Naziv>
-      <Datum>6/11/2017 8:10:40 PM</Datum>
-      <Opis>jjj</Opis>
+      <id>ku</id>
+      <naziv>ku</naziv>
+      <datum>6/12/2017 1:28:01 AM</datum>
+      <opis>ku</opis>
+      <Id>ku</Id>
+      <Naziv>ku</Naziv>
+      <Datum>6/12/2017 1:28:01 AM</Datum>
+      <Opis>ku</Opis>
     </smer>
-    <opis>ooo</opis>
+    <opis>hh</opis>
     <velicinaGrupe>0</velicinaGrupe>
-    <minDuzinaTermina>2</minDuzinaTermina>
-    <brTermina>17</brTermina>
-    <prisustvoProjektora>true</prisustvoProjektora>
+    <minDuzinaTermina>1</minDuzinaTermina>
+    <brTermina>19</brTermina>
+    <prisustvoProjektora>false</prisustvoProjektora>
     <prisustvoTable>false</prisustvoTable>
     <prisustvoPametneTable>false</prisustvoPametneTable>
     <os>Windows</os>
     <softver>
-      <id>k</id>
-      <naziv>k</naziv>
+      <id>l</id>
+      <naziv>lfff</naziv>
       <os>Windows</os>
-      <proizvodjac>k</proizvodjac>
-      <sajt>k</sajt>
-      <godinaIzdavanja>k</godinaIzdavanja>
+      <proizvodjac>l</proizvodjac>
+      <sajt>l</sajt>
+      <godinaIzdavanja>l</godinaIzdavanja>
       <cena>0</cena>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
+      <opis>l</opis>
+      <Id>l</Id>
+      <Naziv>lfff</Naziv>
       <Os>Windows</Os>
-      <Proizvodjac>k</Proizvodjac>
-      <Sajt>k</Sajt>
-      <GodinaIzdavanja>k</GodinaIzdavanja>
+      <Proizvodjac>l</Proizvodjac>
+      <Sajt>l</Sajt>
+      <GodinaIzdavanja>l</GodinaIzdavanja>
       <Cena>0</Cena>
-      <Opis>k</Opis>
+      <Opis>l</Opis>
     </softver>
-    <Id>ooo</Id>
-    <Naziv>ooo</Naziv>
-    <Smer>
-      <id>kurs</id>
-      <naziv>jjj</naziv>
-      <datum>6/11/2017 8:10:40 PM</datum>
-      <opis>jjj</opis>
-      <Id>kurs</Id>
-      <Naziv>jjj</Naziv>
-      <Datum>6/11/2017 8:10:40 PM</Datum>
-      <Opis>jjj</Opis>
-    </Smer>
-    <Opis>ooo</Opis>
-    <VelicinaGrupe>0</VelicinaGrupe>
-    <MinDuzinaTermina>2</MinDuzinaTermina>
-    <BrTermina>17</BrTermina>
-    <PrisustvoProjektora>true</PrisustvoProjektora>
+    <Id>kkhh</Id>
+    <Naziv>kkhh</Naziv>
+    <Opis>hh</Opis>
+    <PrisustvoProjektora>false</PrisustvoProjektora>
     <PrisustvoTable>false</PrisustvoTable>
     <PrisustvoPametneTable>false</PrisustvoPametneTable>
     <Os>Windows</Os>
+    <VelicinaGrupe>0</VelicinaGrupe>
+    <MinDuzinaTermina>1</MinDuzinaTermina>
+    <BrTermina>19</BrTermina>
+    <Smer>
+      <id>ku</id>
+      <naziv>ku</naziv>
+      <datum>6/12/2017 1:28:01 AM</datum>
+      <opis>ku</opis>
+      <Id>ku</Id>
+      <Naziv>ku</Naziv>
+      <Datum>6/12/2017 1:28:01 AM</Datum>
+      <Opis>ku</Opis>
+    </Smer>
     <Softver>
-      <id>k</id>
-      <naziv>k</naziv>
+      <id>l</id>
+      <naziv>lfff</naziv>
       <os>Windows</os>
-      <proizvodjac>k</proizvodjac>
-      <sajt>k</sajt>
-      <godinaIzdavanja>k</godinaIzdavanja>
+      <proizvodjac>l</proizvodjac>
+      <sajt>l</sajt>
+      <godinaIzdavanja>l</godinaIzdavanja>
       <cena>0</cena>
-      <opis>k</opis>
-      <Id>k</Id>
-      <Naziv>k</Naziv>
+      <opis>l</opis>
+      <Id>l</Id>
+      <Naziv>lfff</Naziv>
       <Os>Windows</Os>
-      <Proizvodjac>k</Proizvodjac>
-      <Sajt>k</Sajt>
-      <GodinaIzdavanja>k</GodinaIzdavanja>
+      <Proizvodjac>l</Proizvodjac>
+      <Sajt>l</Sajt>
+      <GodinaIzdavanja>l</GodinaIzdavanja>
       <Cena>0</Cena>
-      <Opis>k</Opis>
+      <Opis>l</Opis>
     </Softver>
   </Subject>
 </ArrayOfSubject>

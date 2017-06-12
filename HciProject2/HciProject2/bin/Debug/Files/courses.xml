@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ArrayOfCourse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Course>
-    <id>kurs</id>
-    <naziv>jjj</naziv>
-    <datum>6/11/2017 8:10:40 PM</datum>
-    <opis>jjj</opis>
-    <Id>kurs</Id>
-    <Naziv>jjj</Naziv>
-    <Datum>6/11/2017 8:10:40 PM</Datum>
-    <Opis>jjj</Opis>
+    <id>ku</id>
+    <naziv>ku</naziv>
+    <datum>6/12/2017 1:28:01 AM</datum>
+    <opis>ku</opis>
+    <Id>ku</Id>
+    <Naziv>ku</Naziv>
+    <Datum>6/12/2017 1:28:01 AM</Datum>
+    <Opis>ku</Opis>
   </Course>
 </ArrayOfCourse>

@@ -46,6 +46,8 @@ namespace HciProject2.Dialogs
         {
             InitializeComponent();
 
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             os.Items.Add("Linux");
             os.Items.Add("Windows");
             os.Items.Add("Both");
@@ -153,7 +155,17 @@ namespace HciProject2.Dialogs
         }
         private void enableFields(bool e)
         {
-            Id.IsEnabled = e;
+            if (e)
+            {
+                if (addNew)
+                {
+                    Id.IsEnabled = e;
+                }
+            }
+            else
+            {
+                Id.IsEnabled = e;
+            }
             brRadnihMesta.IsEnabled = e;
             opis.IsEnabled = e;
             prisustvoProjektora.IsEnabled = e;
@@ -174,10 +186,15 @@ namespace HciProject2.Dialogs
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
+
                 // Get the dragged ListViewItem
                 ListView listView = sender as ListView;
                 ListViewItem listViewItem =
                     FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                if (listView.Name.Equals("DropList")){
+                    return;
+                }
                 if (listViewItem != null)
                 {
                     // Find the data behind the ListViewItem
@@ -223,7 +240,6 @@ namespace HciProject2.Dialogs
             if (e.Data.GetDataPresent("myFormat"))
             {
                 Software s = e.Data.GetData("myFormat") as Software;
-                //softwares.Clear();
                 softwares.Add(s);
 
                 classroom.Softver.Add(s);
@@ -238,15 +254,21 @@ namespace HciProject2.Dialogs
         {
             if (dgrMain.SelectedIndex != -1)
             {
-                classroomShow.RemoveAt(dgrMain.SelectedIndex);
-                
+                Classroom c = classroomShow.ElementAt(dgrMain.SelectedIndex);
+                MainWindow.classrooms.Remove(c);
+               
+                save();
             }
-            save();
+            
         }
         
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if(!addNew && dgrMain.SelectedIndex == -1)
+            {
+                return;
+            }
             Boolean hasError = false;
             if (addNew || !currId.Equals(classroom.Id))
             {
@@ -279,30 +301,45 @@ namespace HciProject2.Dialogs
                 Console.WriteLine(classroom.Os);
                 if (!s.Os.Equals(classroom.Os))
                 {
-                    if (!classroom.Os.Equals("Both"))
+                    if (!classroom.Os.Equals("Both") && !s.Os.Equals("Cross platform"))
                     {
                         softwares.Clear();
                         classroom.Softver.Clear();
-                        MessageBox.Show("Classroom has " + classroom.Os + " and Softver that you chose has " + s.Os + " This two values must be the same");
+                        softwareShow.Clear();
+                        o.SelectedIndex = -1;
+                        foreach (Software ss in MainWindow.softwares)
+                        {
+                            if (!softwares.Contains(ss))
+                            {
+                                softwareShow.Add(ss);
+                            }
+                        }
+                        MessageBox.Show("Classroom has " + classroom.Os + " and Softver that you chose has " + s.Os + ". This two values must be the same");
                         hasError = true;
                         return;
                     }
                     
                 }
             }
-            if (classroom.BrRadnihMesta.GetType() != typeof(int))
+            int d;
+            if (int.TryParse(brRadnihMesta.Text, out d))
             {
-                MessageBox.Show("Number of workers must be real number.");
-                hasError = true;
+                //valid 
             }
-           
+            else
+            {
+                //invalid
+                MessageBox.Show("Please enter a valid number for number of workers!");
+                return;
+            }
+
             if (!hasError)
             {
+                
                 if (addNew)
                 {
                     Classroom c = new Classroom();
                     c.Copy(classroom);
-                    //c.Termini = new List<Appointment>();
                     String s = "";
                     foreach (Software sp in classroom.Softver)
                     {
@@ -311,7 +348,7 @@ namespace HciProject2.Dialogs
                     }
                     c.ImenaSoftvera = s;
                     Console.WriteLine(c.Termini.Count);
-                    classroomShow.Add(c);
+                    MainWindow.classrooms.Add(c);
                     addNew = false;
 
                 }
@@ -352,17 +389,20 @@ namespace HciProject2.Dialogs
                                     break;
 
                                 }
-                                if (!currClassroom.Os.Equals(sub.Os))
+                                if (!currClassroom.Os.Equals("Both") && !sub.Os.Equals("Both"))
                                 {
-                                    b = true;
-                                    break;
+                                    if (!currClassroom.Os.Equals(sub.Os))
+                                    {
+                                        b = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                     if (b)
                     {
-                        if (MessageBox.Show("This will remove appointments on schedule, delete anyway?", "Delete classroom", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        if (MessageBox.Show("This action will remove appointments on schedule, delete anyway?", "Delete classroom", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                         {
                             //do no stuff
                             return;
@@ -381,6 +421,7 @@ namespace HciProject2.Dialogs
                                         {
                                             Console.WriteLine("Subject has projector, but classroom don't!");
                                             currClassroom.Termini.RemoveAt(i);
+                                            sub.BrTermina += 1;
                                             break;
 
                                         }
@@ -388,6 +429,7 @@ namespace HciProject2.Dialogs
                                         {
                                             Console.WriteLine("Subject has table, but classroom don't!");
                                             currClassroom.Termini.RemoveAt(i);
+                                            sub.BrTermina += 1;
                                             break;
 
 
@@ -396,15 +438,20 @@ namespace HciProject2.Dialogs
                                         {
                                             Console.WriteLine("Subject has smart table, but classroom don't!");
                                             currClassroom.Termini.RemoveAt(i);
+                                            sub.BrTermina += 1;
                                             break;
 
                                         }
-                                        if (!currClassroom.Os.Equals(sub.Os))
+                                        if (!currClassroom.Os.Equals("Both") && !sub.Os.Equals("Both"))
                                         {
-                                            Console.WriteLine("Subject has " + sub.Os + " but classroom has " + currClassroom.Os);
+                                            if (!currClassroom.Os.Equals(sub.Os))
+                                            {
+                                                Console.WriteLine("Subject has " + sub.Os + " but classroom has " + currClassroom.Os);
 
-                                            currClassroom.Termini.RemoveAt(i);
-                                            break;
+                                                currClassroom.Termini.RemoveAt(i);
+                                                sub.BrTermina += 1;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -413,39 +460,29 @@ namespace HciProject2.Dialogs
                     }
                     dgrMain.SelectedIndex = sIndex;
                 }
-
+                
                 save();
                 
-                dgrMain.UnselectAllCells();
-                setSelected();
-                enableFields(false);
+                
             }
         }
 
         private void save()
         {
-            MainWindow.classrooms.Clear();
+            //MainWindow.classrooms.Clear();
             MainWindow.classroomsShow.Clear();
-            foreach (Classroom s in classroomShow)
+            classroomShow.Clear();
+            foreach (Classroom s in MainWindow.classrooms)
             {
-                MainWindow.classrooms.Add(s);
+                classroomShow.Add(s);
                 MainWindow.classroomsShow.Add(s);
             }
-            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
-
-            using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml"))
-            {
-                List<Classroom> list = new List<Classroom>();
-                foreach (Classroom c in classroomShow)
-                {
-                    MessageBox.Show(c.Id);
-                    list.Add(c);
-                }
-                serializer.Serialize(stream, list);
-            }
-
+            dgrMain.UnselectAllCells();
+            setSelected();
+            enableFields(false);
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            os_SelectionChanged(o, r);
             saveFile();
         }
 
@@ -487,7 +524,7 @@ namespace HciProject2.Dialogs
                 }
             }
 
-
+            
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -499,8 +536,6 @@ namespace HciProject2.Dialogs
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            /*MainWindow m = new MainWindow();
-            m.Show();*/
         }
         
         private void os_SelectionChanged(object sender, RoutedEventArgs e)
@@ -517,11 +552,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -555,11 +590,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -592,11 +627,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -629,11 +664,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -666,11 +701,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -703,11 +738,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -740,11 +775,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     classroomShow.Add(s);
                                 }
@@ -775,11 +810,11 @@ namespace HciProject2.Dialogs
                     {
                         if (!osistem.SelectedItem.Equals(""))
                         {
-                            if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                            if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                             {
                                 classroomShow.Add(s);
                             }
-                            else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                            else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                             {
                                 classroomShow.Add(s);
                             }
@@ -809,6 +844,7 @@ namespace HciProject2.Dialogs
             {
                 softwareShow.Add(s);
             }
+            o.SelectedIndex = -1;
             softwares.Clear();
             classroom.Softver.Clear();
         }
@@ -827,13 +863,13 @@ namespace HciProject2.Dialogs
                             softwareShow.Add(ss);
                         }
                     }
-                    if(o.SelectedItem.Equals("Cross platform") && ss.Os.Equals("Both"))
+                    /*if(o.SelectedItem.Equals("Cross platform") || ss.Os.Equals("Cross platform"))
                     {
-                        if (!softwares.Contains(ss))
+                        if (!softwares.Contains(ss) && !softwareShow.Contains(ss))
                         {
                             softwareShow.Add(ss);
                         }
-                    }
+                    }*/
                 }
             }
             
@@ -843,6 +879,10 @@ namespace HciProject2.Dialogs
         {
             if (search.Text.Equals(":All"))
             {
+                osistem.SelectedIndex = -1;
+                table.IsChecked = false;
+                smart.IsChecked = false;
+                proj.IsChecked = false;
                 classroomShow.Clear();
                 foreach (Classroom ss in MainWindow.classrooms)
                 {
@@ -863,6 +903,14 @@ namespace HciProject2.Dialogs
                 MessageBox.Show("Invalid query!");
                 return;
             }
+
+            osistem.SelectedIndex = -1;
+            table.IsChecked = false;
+            smart.IsChecked = false;
+            proj.IsChecked = false;
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            os_SelectionChanged(o, r);
             string prvi = lines[0].Substring(1);
             string drugi = lines[1];
             classroomShow.Clear();

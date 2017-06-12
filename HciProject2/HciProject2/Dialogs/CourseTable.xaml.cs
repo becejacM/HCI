@@ -46,7 +46,9 @@ namespace HciProject2.Dialogs
         public CourseTable()
         {
             InitializeComponent();
-            
+
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             course = new Course();
             Id.DataContext = course;
             naziv.DataContext = course;
@@ -99,7 +101,17 @@ namespace HciProject2.Dialogs
         }
         private void enableFields(bool e)
         {
-            Id.IsEnabled = e;
+            if (e)
+            {
+                if (addNew)
+                {
+                    Id.IsEnabled = e;
+                }
+            }
+            else
+            {
+                Id.IsEnabled = e;
+            }
             naziv.IsEnabled = e;
             opis.IsEnabled = e;
             //Softver.IsEnabled = e;
@@ -118,7 +130,7 @@ namespace HciProject2.Dialogs
                 }
                 if (b)
                 {
-                    if (MessageBox.Show("This will delete subjects with this course. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("This will delete subjects and appointments with this course. Delete anyway?", "Delete course", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     {
                         //do no stuff
                         return;
@@ -130,12 +142,24 @@ namespace HciProject2.Dialogs
                         {
                             if (MainWindow.subjects[i].Smer.Id.Equals(courseShow[dgrMain.SelectedIndex].Id))
                             {
+                                foreach (Classroom c in MainWindow.classrooms)
+                                {
+                                    for (int ii = c.Termini.Count - 1; ii > -1; ii--)
+                                    {
+                                        if (MainWindow.subjects[i].Naziv.Equals(c.Termini[ii].Predmet))
+                                        {
+                                            c.Termini.RemoveAt(ii);
+                                        }
+                                    }
+                                }
                                 MainWindow.subjects.RemoveAt(i);
                             }
                         }
-                        courseShow.RemoveAt(dgrMain.SelectedIndex);
+                        Course si = courseShow.ElementAt(dgrMain.SelectedIndex);
+                        MainWindow.courses.Remove(si);
 
-                        saveSub();
+                        
+                        //saveSub();
                     }
                 }
             }
@@ -145,6 +169,10 @@ namespace HciProject2.Dialogs
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (!addNew && dgrMain.SelectedIndex == -1 && izmena == -1)
+            {
+                return;
+            }
             Boolean hasError = false;
             if (addNew || !currId.Equals(course.Id))
             {
@@ -154,6 +182,7 @@ namespace HciProject2.Dialogs
                     {
                         MessageBox.Show("ID allready exists. ID must be unique.");
                         hasError = true;
+                        return;
                     }
                 }
             }
@@ -162,11 +191,13 @@ namespace HciProject2.Dialogs
             {
                 MessageBox.Show("ID must be set.");
                 hasError = true;
+                return;
             }
             if (course.Opis.Equals("") || course.Naziv.Equals("") )
             {
                 MessageBox.Show("One or more values doesn't set. All values must be set.");
                 hasError = true;
+                return;
             }
 
             if (!hasError)
@@ -178,7 +209,7 @@ namespace HciProject2.Dialogs
 
                     c.Copy(course);
                     c.Datum = DateTime.Now.ToString();
-                    courseShow.Add(c);
+                    MainWindow.courses.Add(c);
                     addNew = false;
 
                 }
@@ -202,10 +233,6 @@ namespace HciProject2.Dialogs
                 }
 
                 save();
-
-                dgrMain.UnselectAllCells();
-                setSelected();
-                enableFields(false);
             }
         }
 
@@ -220,12 +247,12 @@ namespace HciProject2.Dialogs
             }
             
             xdoc.Save("courses.xml");*/
-            MainWindow.courses.Clear();
-            foreach (Course s in courseShow)
+            courseShow.Clear();
+            foreach (Course s in MainWindow.courses)
             {
-                MainWindow.courses.Add(s);
+                courseShow.Add(s);
             }
-            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/courses.xml", "");
+            /*File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/courses.xml", "");
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Course>));
 
@@ -237,7 +264,7 @@ namespace HciProject2.Dialogs
                     list.Add(c);
                 }
                 serializer.Serialize(stream, list);
-            }
+            }*/
 
             /*using (var writer = new StreamWriter(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/courses.txt"))
             {
@@ -246,6 +273,12 @@ namespace HciProject2.Dialogs
                     writer.WriteLine(c.Id + ";" + c.Naziv + ";" + c.Datum + ";" + c.Opis);
                 }
             }*/
+            dgrMain.UnselectAllCells();
+            setSelected();
+            enableFields(false);
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            Label_KeyDown(o, r);
             saveFile();
         }
         private void saveFile()
@@ -355,7 +388,7 @@ namespace HciProject2.Dialogs
         {
         }
 
-        private void saveSub()
+        /*private void saveSub()
         {
             File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml", "");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Subject>));
@@ -369,12 +402,14 @@ namespace HciProject2.Dialogs
                 }
                 serializer.Serialize(stream, list);
             }
-        }
+        }*/
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             if (search.Text.Equals(":All"))
             {
+                naz.Text = "";
+                desc.Text = "";
                 courseShow.Clear();
                 foreach (Course ss in MainWindow.courses)
                 {
@@ -395,6 +430,13 @@ namespace HciProject2.Dialogs
                 MessageBox.Show("Invalid query!");
                 return;
             }
+            naz.Text = "";
+            desc.Text = "";
+            courseShow.Clear();
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            Label_KeyDown(o, r);
+
             string prvi = lines[0].Substring(1);
             string drugi = lines[1];
             courseShow.Clear();
