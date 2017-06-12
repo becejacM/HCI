@@ -256,7 +256,16 @@ namespace HciProject2.Dialogs
             {
                 Classroom c = classroomShow.ElementAt(dgrMain.SelectedIndex);
                 MainWindow.classrooms.Remove(c);
-               
+                foreach (Subject cc in MainWindow.subjects)
+                {
+                    for (int i = c.Termini.Count - 1; i > -1; i--)
+                    {
+                        if (cc.Naziv.Equals(c.Termini[i].Predmet))
+                        {
+                            cc.BrTermina += 1;
+                        }
+                    }
+                }
                 save();
             }
             

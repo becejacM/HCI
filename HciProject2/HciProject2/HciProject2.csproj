@@ -63,14 +63,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AddClassroomDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\AddSubjectDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\ClassroomTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,12 +86,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Dialogs\AddClassroomDialog.xaml.cs">
-      <DependentUpon>AddClassroomDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\AddSubjectDialog.xaml.cs">
-      <DependentUpon>AddSubjectDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ClassroomTable.xaml.cs">
       <DependentUpon>ClassroomTable.xaml</DependentUpon>
