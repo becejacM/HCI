@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HciProject2.Dialogs"
         mc:Ignorable="d"
-        Title="SoftwareTable" Height="500" Width="1000"
-        Keyboard.KeyDown="osistem_SelectionChanged" Keyboard.KeyUp="osistem_SelectionChanged">
+        Title="SoftwareTable" Height="800" Width="800"
+        Keyboard.KeyDown="osistem_SelectionChanged" Keyboard.KeyUp="osistem_SelectionChanged"
+        ResizeMode="NoResize">
     <Window.Resources>
         <ObjectDataProvider x:Key="AData"></ObjectDataProvider>
     </Window.Resources>
@@ -20,20 +21,20 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters for softwares:</Label>
+            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters:</Label>
             <Label Grid.Column="1" Grid.Row="0" Keyboard.KeyDown="osistem_SelectionChanged">Name:</Label>
             <TextBox Name="naz" Grid.Column="2" Grid.Row="0" />
             <Label Grid.Column="3" Grid.Row="0" Keyboard.KeyDown="osistem_SelectionChanged">Manufacturer:</Label>
@@ -48,15 +49,15 @@
         <Grid Grid.Row="1" Grid.Column="0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">SEARCH:</Label>
-            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :Name name. :All for all classrooms"  MaxLength="150" Grid.Column="1" Grid.Row="0" />
+            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :Name name. :All for all classrooms" Height="20" Grid.Column="1" Grid.Row="0" />
             <Button x:Name="btnSearch" Grid.Column="3" Grid.Row="0" Content="Search" ToolTip="Click to search" Click="btnSearch_Click" Margin="10" Padding="20,5" />
         </Grid>
         <DataGrid

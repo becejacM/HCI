@@ -55,7 +55,11 @@ namespace HciProject2
         {
             InitializeComponent();
 
-            //menu.Visibility = Visibility.Collapsed;
+            initialize();
+        }
+
+        public void initialize()
+        {
             classrooms = new ObservableCollection<Classroom>();
             softwares = new ObservableCollection<Software>();
             courses = new ObservableCollection<Course>();
@@ -112,8 +116,6 @@ namespace HciProject2
             os.Items.Add("Windows");
             os.Items.Add("Linux");
             os.Items.Add("Both");
-
-
         }
 
         public void readFromFile()
@@ -264,9 +266,6 @@ namespace HciProject2
             readFromFile();
             Window w = new ClassroomTable();
             w.ShowDialog();
-            
-            //this.Close();
-
         }
         
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <ArrayOfClassroom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Classroom>
-    <Id>mmm</Id>
-    <Opis>mmm</Opis>
+    <Id>c2</Id>
+    <Opis>kk</Opis>
     <ImenaSoftvera>k </ImenaSoftvera>
     <BrRadnihMesta>0</BrRadnihMesta>
     <PrisustvoProjektora>false</PrisustvoProjektora>
@@ -32,8 +32,8 @@
     <Termini />
   </Classroom>
   <Classroom>
-    <Id>k</Id>
-    <Opis>kkk</Opis>
+    <Id>lll</Id>
+    <Opis>ll</Opis>
     <ImenaSoftvera>k </ImenaSoftvera>
     <BrRadnihMesta>0</BrRadnihMesta>
     <PrisustvoProjektora>false</PrisustvoProjektora>
@@ -61,76 +61,5 @@
       </Software>
     </Softver>
     <Termini />
-  </Classroom>
-  <Classroom>
-    <Id>oooo</Id>
-    <Opis>oooo</Opis>
-    <ImenaSoftvera>k </ImenaSoftvera>
-    <BrRadnihMesta>0</BrRadnihMesta>
-    <PrisustvoProjektora>false</PrisustvoProjektora>
-    <PrisustvoTable>false</PrisustvoTable>
-    <PrisustvoPametneTable>false</PrisustvoPametneTable>
-    <Os>Windows</Os>
-    <Softver>
-      <Software>
-        <id>k</id>
-        <naziv>k</naziv>
-        <os>Windows</os>
-        <proizvodjac>k</proizvodjac>
-        <sajt>k</sajt>
-        <godinaIzdavanja>k</godinaIzdavanja>
-        <cena>0</cena>
-        <opis>k</opis>
-        <Id>k</Id>
-        <Naziv>k</Naziv>
-        <Os>Windows</Os>
-        <Proizvodjac>k</Proizvodjac>
-        <Sajt>k</Sajt>
-        <GodinaIzdavanja>k</GodinaIzdavanja>
-        <Cena>0</Cena>
-        <Opis>k</Opis>
-      </Software>
-    </Softver>
-    <Termini />
-  </Classroom>
-  <Classroom>
-    <Id>ppp</Id>
-    <Opis>ppp</Opis>
-    <ImenaSoftvera>k </ImenaSoftvera>
-    <BrRadnihMesta>0</BrRadnihMesta>
-    <PrisustvoProjektora>true</PrisustvoProjektora>
-    <PrisustvoTable>false</PrisustvoTable>
-    <PrisustvoPametneTable>false</PrisustvoPametneTable>
-    <Os>Windows</Os>
-    <Softver>
-      <Software>
-        <id>k</id>
-        <naziv>k</naziv>
-        <os>Windows</os>
-        <proizvodjac>k</proizvodjac>
-        <sajt>k</sajt>
-        <godinaIzdavanja>k</godinaIzdavanja>
-        <cena>0</cena>
-        <opis>k</opis>
-        <Id>k</Id>
-        <Naziv>k</Naziv>
-        <Os>Windows</Os>
-        <Proizvodjac>k</Proizvodjac>
-        <Sajt>k</Sajt>
-        <GodinaIzdavanja>k</GodinaIzdavanja>
-        <Cena>0</Cena>
-        <Opis>k</Opis>
-      </Software>
-    </Softver>
-    <Termini>
-      <Appointment>
-        <Id>ppp269363</Id>
-        <Kolona>3</Kolona>
-        <Red>4</Red>
-        <Velicina>2</Velicina>
-        <Predmet>ooo</Predmet>
-        <Status>no</Status>
-      </Appointment>
-    </Termini>
   </Classroom>
 </ArrayOfClassroom>

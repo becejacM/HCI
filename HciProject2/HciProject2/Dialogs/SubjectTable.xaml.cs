@@ -47,6 +47,9 @@ namespace HciProject2.Dialogs
         public SubjectTable()
         {
             InitializeComponent();
+
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             os.Items.Add("Linux");
             os.Items.Add("Windows");
             os.Items.Add("Both");
@@ -165,8 +168,19 @@ namespace HciProject2.Dialogs
 
         private void enableFields(bool e)
         {
-            id.IsEnabled = e;
-            naziv.IsEnabled = e;
+            if (e)
+            {
+                if (addNew)
+                {
+                    id.IsEnabled = e;
+                    naziv.IsEnabled = e;
+                }
+            }
+            else
+            {
+                id.IsEnabled = e;
+                naziv.IsEnabled = e;
+            }
             opis.IsEnabled = e;
             prisustvoProjektora.IsEnabled = e;
             prisustvoTable.IsEnabled = e;
@@ -194,6 +208,11 @@ namespace HciProject2.Dialogs
                 ListView listView = sender as ListView;
                 ListViewItem listViewItem =
                     FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                if (listView.Name.Equals("DropList") || listView.Name.Equals("DropListC"))
+                {
+                    return;
+                }
                 if (listViewItem != null)
                 {
                     // Find the data behind the ListViewItem
@@ -219,6 +238,11 @@ namespace HciProject2.Dialogs
                 ListView listView = sender as ListView;
                 ListViewItem listViewItem =
                     FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                if (listView.Name.Equals("DropList") || listView.Name.Equals("DropListC"))
+                {
+                    return;
+                }
                 if (listViewItem != null)
                 {
                     // Find the data behind the ListViewItem
@@ -278,6 +302,15 @@ namespace HciProject2.Dialogs
                 softwares.Add(s);
                 subject.Softver.Copy(s);
                 softwareShow.Remove(s);
+                softwareShow.Clear();
+                o.SelectedIndex = -1;
+                foreach (Software ss in MainWindow.softwares)
+                {
+                    if (!softwares.Contains(ss))
+                    {
+                        softwareShow.Add(ss);
+                    }
+                }
 
             }
         }
@@ -297,23 +330,37 @@ namespace HciProject2.Dialogs
         {
             if (dgrMain.SelectedIndex != -1)
             {
-                subjectsShow.RemoveAt(dgrMain.SelectedIndex);
-                
+                Subject s = subjectsShow.ElementAt(dgrMain.SelectedIndex);
+                foreach (Classroom c in MainWindow.classrooms)
+                {
+                    for (int i = c.Termini.Count - 1; i > -1; i--)
+                    {
+                        if (s.Naziv.Equals(c.Termini[i].Predmet))
+                        {
+                            c.Termini.RemoveAt(i);
+                        }
+                    }
+                }
+                MainWindow.subjects.Remove(s);
+                save();
             }
-            save();
         }
 
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (!addNew && dgrMain.SelectedIndex == -1)
+            {
+                return;
+            }
             Boolean hasError = false;
             if (addNew || !currId.Equals(subject.Id))
             {
                 foreach (Subject s in MainWindow.subjects)
                 {
-                    if (subject.Equals(s))
+                    if (subject.Equals(s) || subject.Naziv.Equals(s.Naziv))
                     {
-                        MessageBox.Show("ID allready exists. ID must be unique.");
+                        MessageBox.Show("ID or Name allready exists. ID and Name must be unique.");
                         hasError = true;
                     }
                 }
@@ -327,13 +374,64 @@ namespace HciProject2.Dialogs
                 subject.PrisustvoPametneTable.Equals("") || subject.Os.Equals("") || subject.Softver.Id.Equals("") || subject.VelicinaGrupe.Equals("")
                 || subject.MinDuzinaTermina.Equals("") || subject.BrTermina.Equals("") || subject.Smer.Id.Equals(""))
             {
+               
                 MessageBox.Show("One or more values doesn't set. All values must be set.");
                 hasError = true;
             }
             if (!subject.Os.Equals(subject.Softver.Os))
             {
-                MessageBox.Show("Subject has " + subject.Os + " and Softver that you chose has " + subject.Softver.Os + " This two values must be the same");
-                hasError = true;
+                if (!subject.Os.Equals("Both") && !subject.Softver.Os.Equals("Cross platform"))
+                {
+                    softwares.Clear();
+                    subject.Softver = new Software();
+                    softwareShow.Clear();
+                    o.SelectedIndex = -1;
+                    foreach (Software ss in MainWindow.softwares)
+                    {
+                        if (!softwares.Contains(ss))
+                        {
+                            softwareShow.Add(ss);
+                        }
+                    }
+                    MessageBox.Show("Subject has " + subject.Os + " and Software has " + subject.Softver.Os + " This two values must be the same");
+                    hasError = true;
+                }
+            }
+            int d;
+            if (int.TryParse(velicinaGrupe.Text, out d))
+            {
+                //valid 
+            }
+            else
+            {
+                //invalid
+                MessageBox.Show("Please enter a valid number for size of group!");
+                return;
+            }
+            if (int.TryParse(minDuzinaTermina.Text, out d))
+            {
+                //valid 
+                if(d<1 || d > 6)
+                {
+                    MessageBox.Show("Please enter a number between 1 and 6 for size of appointments!");
+                    return;
+                }
+            }
+            else
+            {
+                //invalid
+                MessageBox.Show("Please enter a valid number for size of appointments!");
+                return;
+            }
+            if (int.TryParse(brTermina.Text, out d))
+            {
+                //valid 
+            }
+            else
+            {
+                //invalid
+                MessageBox.Show("Please enter a valid number for number of appointments!");
+                return;
             }
             if (!hasError)
             {
@@ -341,8 +439,7 @@ namespace HciProject2.Dialogs
                 {
                     Subject c = new Subject();
                     c.Copy(subject);
-                    subjectsShow.Add(c);
-                    //MainWindow.subjects.Add(c);
+                    MainWindow.subjects.Add(c);
                     addNew = false;
 
                 }
@@ -381,10 +478,13 @@ namespace HciProject2.Dialogs
                                     break;
 
                                 }
-                                if (!c.Os.Equals(currSubject.Os))
+                                if (!c.Os.Equals("Both") && !currSubject.Os.Equals("Both"))
                                 {
-                                    b = true;
-                                    break;
+                                    if (!c.Os.Equals(currSubject.Os))
+                                    {
+                                        b = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -429,19 +529,22 @@ namespace HciProject2.Dialogs
                                             break;
 
                                         }
-                                        if (!c.Os.Equals(currSubject.Os))
+                                        if (!c.Os.Equals("Both") && !currSubject.Os.Equals("Both"))
                                         {
-                                            Console.WriteLine("Subject has " + currSubject.Os + " but classroom has " + c.Os);
+                                            if (!c.Os.Equals(currSubject.Os))
+                                            {
+                                                Console.WriteLine("Subject has " + currSubject.Os + " but classroom has " + c.Os);
 
-                                            c.Termini.RemoveAt(i);
-                                            break;
+                                                c.Termini.RemoveAt(i);
+                                                break;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    saveClass();
+                    //saveClass();
                     dgrMain.SelectedIndex = sIndex;
                 }
 
@@ -451,14 +554,15 @@ namespace HciProject2.Dialogs
 
         private void save()
         {
-            MainWindow.subjects.Clear();
+            //MainWindow.subjects.Clear();
             MainWindow.subjectsShow.Clear();
-            foreach(Subject s in subjectsShow)
+            subjectsShow.Clear();
+            foreach(Subject s in MainWindow.subjects)
             {
                 MainWindow.subjectsShow.Add(s);
-                MainWindow.subjects.Add(s);
+                subjectsShow.Add(s);
             }
-            File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml", "");
+            /*File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml", "");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Subject>));
 
             using (FileStream stream = File.OpenWrite(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/subjects.xml"))
@@ -469,11 +573,13 @@ namespace HciProject2.Dialogs
                     list.Add(c);
                 }
                 serializer.Serialize(stream, list);
-            }
+            }*/
             dgrMain.UnselectAllCells();
             setSelected();
             enableFields(false);
-
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            os_SelectionChanged(o, r);
             saveFile();
         }
 
@@ -540,11 +646,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -578,11 +684,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -615,11 +721,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -652,11 +758,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -689,11 +795,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -726,11 +832,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -763,11 +869,11 @@ namespace HciProject2.Dialogs
                         {
                             if (!osistem.SelectedItem.Equals(""))
                             {
-                                if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                                if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
-                                else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                                else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                                 {
                                     subjectsShow.Add(s);
                                 }
@@ -798,11 +904,11 @@ namespace HciProject2.Dialogs
                     {
                         if (!osistem.SelectedItem.Equals(""))
                         {
-                            if (osistem.SelectedItem.Equals("Windows") && s.Os.Equals("Windows"))
+                            if (osistem.SelectedItem.Equals("Windows") && (s.Os.Equals("Windows") || s.Os.Equals("Both")))
                             {
                                 subjectsShow.Add(s);
                             }
-                            else if (osistem.SelectedItem.Equals("Linux") && s.Os.Equals("Linux"))
+                            else if (osistem.SelectedItem.Equals("Linux") && (s.Os.Equals("Linux") || s.Os.Equals("Both")))
                             {
                                 subjectsShow.Add(s);
                             }
@@ -830,7 +936,7 @@ namespace HciProject2.Dialogs
         {
         }
 
-        private void saveClass()
+        /*private void saveClass()
         {
             File.WriteAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/Files/classrooms.xml", "");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Classroom>));
@@ -844,7 +950,7 @@ namespace HciProject2.Dialogs
                 }
                 serializer.Serialize(stream, list);
             }
-        }
+        }*/
 
         private void o_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -859,20 +965,176 @@ namespace HciProject2.Dialogs
                             softwareShow.Add(ss);
                         }
                     }
-                    if (o.SelectedItem.Equals("Cross platform") && ss.Os.Equals("Both"))
+                    /*if (o.SelectedItem.Equals("Cross platform") || ss.Os.Equals("Cross platform"))
                     {
-                        if (!softwares.Contains(ss))
+                        if (!softwares.Contains(ss) && !softwareShow.Contains(ss))
                         {
                             softwareShow.Add(ss);
                         }
-                    }
+                    }*/
                 }
             }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            if (search.Text.Equals(":All"))
+            {
+                osistem.SelectedIndex = -1;
+                table.IsChecked = false;
+                smart.IsChecked = false;
+                proj.IsChecked = false;
+                subjectsShow.Clear();
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    subjectsShow.Add(ss);
+                }
+                return;
+            }
 
+            if (search.Text.Equals("") || !search.Text.StartsWith(":"))
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+            //:Id c1 || :Description l
+            string[] lines = search.Text.Split(' ');
+            if (lines.Length != 2)
+            {
+                MessageBox.Show("Invalid query!");
+                return;
+            }
+
+            osistem.SelectedIndex = -1;
+            table.IsChecked = false;
+            smart.IsChecked = false;
+            proj.IsChecked = false;
+            object o = new object();
+            RoutedEventArgs r = new RoutedEventArgs();
+            os_SelectionChanged(o, r);
+            string prvi = lines[0].Substring(1);
+            string drugi = lines[1];
+            subjectsShow.Clear();
+            if (prvi.Equals("Id"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Id.Contains(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Name"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Naziv.Contains(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Course"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Smer.Naziv.Contains(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Description"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Opis.Contains(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("SizeOfGroup"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.VelicinaGrupe == Int32.Parse(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("MinSizeOfAppointment"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.MinDuzinaTermina == Int32.Parse(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("NumberOfAppointments"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.VelicinaGrupe == Int32.Parse(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Projector"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.PrisustvoProjektora.ToString().Equals(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Table"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.PrisustvoTable.ToString().Equals(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("SmartTable"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.PrisustvoPametneTable.ToString().Equals(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Os"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Os.Equals(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
+            else if (prvi.Equals("Software"))
+            {
+                foreach (Subject ss in MainWindow.subjects)
+                {
+                    if (ss.Softver.Naziv.Equals(drugi))
+                    {
+                        subjectsShow.Add(ss);
+                    }
+                }
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ArrayOfSoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Software>
-    <id>k</id>
+    <id>kkkk</id>
     <naziv>k</naziv>
     <os>Windows</os>
     <proizvodjac>k</proizvodjac>
@@ -9,7 +9,7 @@
     <godinaIzdavanja>k</godinaIzdavanja>
     <cena>0</cena>
     <opis>k</opis>
-    <Id>k</Id>
+    <Id>kkkk</Id>
     <Naziv>k</Naziv>
     <Os>Windows</Os>
     <Proizvodjac>k</Proizvodjac>
@@ -17,5 +17,23 @@
     <GodinaIzdavanja>k</GodinaIzdavanja>
     <Cena>0</Cena>
     <Opis>k</Opis>
+  </Software>
+  <Software>
+    <id>uu</id>
+    <naziv>uu</naziv>
+    <os>Cross platform</os>
+    <proizvodjac>uuu</proizvodjac>
+    <sajt>uuu</sajt>
+    <godinaIzdavanja>uuu</godinaIzdavanja>
+    <cena>0</cena>
+    <opis>uuu</opis>
+    <Id>uu</Id>
+    <Naziv>uu</Naziv>
+    <Os>Cross platform</Os>
+    <Proizvodjac>uuu</Proizvodjac>
+    <Sajt>uuu</Sajt>
+    <GodinaIzdavanja>uuu</GodinaIzdavanja>
+    <Cena>0</Cena>
+    <Opis>uuu</Opis>
   </Software>
 </ArrayOfSoftware>

@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HciProject2.Dialogs"
         mc:Ignorable="d"
-        Title="CourseTable" Height="500" Width="800"
-        Keyboard.KeyDown="Label_KeyDown" >
+        Title="CourseTable" Height="800" Width="800"
+        Keyboard.KeyDown="Label_KeyDown" 
+        ResizeMode="NoResize">
     <Window.Resources>
         <ObjectDataProvider x:Key="AData"></ObjectDataProvider>
     </Window.Resources>
@@ -20,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -31,7 +32,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters for courses:</Label>
+            <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">Filters:</Label>
             <Label Grid.Column="1" Grid.Row="0" Keyboard.KeyDown="Label_KeyDown">Name:</Label>
             <TextBox Name="naz" Grid.Column="2" Grid.Row="0" />
             <Label Grid.Column="3" Grid.Row="0" Keyboard.KeyDown="Label_KeyDown">Description:</Label>
@@ -41,15 +42,15 @@
         <Grid Grid.Row="1" Grid.Column="0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label FontWeight="Bold" Grid.Column="0" Grid.Row="0">SEARCH:</Label>
-            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :Name name. :All for all courses"  MaxLength="150" Grid.Column="1" Grid.Row="0" />
+            <TextBox x:Name="search" ToolTip="Enter query like :ColumnName ColumnValue. Example :Name name. :All for all courses" Height="20" Grid.Column="1" Grid.Row="0" />
             <Button x:Name="btnSearch" Grid.Column="3" Grid.Row="0" Content="Search" ToolTip="Click to search" Click="btnSearch_Click" Margin="10" Padding="20,5" />
         </Grid>
         <DataGrid
